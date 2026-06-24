@@ -9,15 +9,6 @@
 
 ---
 
-## Table of Contents
-
-1. [Reconnaissance](#1-reconnaissance)
-2. [Enumeration — SMB Public Share & MSSQL Access](#2-enumeration--smb-public-share--mssql-access)
-3. [Initial Access — MSSQL NTLMv2 Hash Capture & Credential Recovery](#3-initial-access--mssql-ntlmv2-hash-capture--credential-recovery)
-4. [Lateral Movement — SQL Server Error Log Credential Leak](#4-lateral-movement--sql-server-error-log-credential-leak)
-5. [Privilege Escalation — ADCS ESC1 Certificate Abuse](#5-privilege-escalation--adcs-esc1-certificate-abuse)
-6. [Summary](#6-summary)
-
 ---
 
 ## 1. Reconnaissance
@@ -273,13 +264,13 @@ certipy-ad auth -pfx administrator.pfx -dc-ip 10.129.228.253 -domain sequel.htb
 
 ```
 [*] Got TGT
-[*] Got hash for 'administrator@sequel.htb': aad3b435b51404eeaad3b435b51404ee:a52f78e4c751e5f5e17e1e9f3e58f4ee
+[*] Got hash for 'administrator@sequel.htb': aad3b435b51404eeaad3b435b51404ee:b29f78e4c751e5f5e17e1e9f3e58f4ee
 ```
 
 ### 5.5 — Root Flag via Pass-the-Hash
 
 ```bash
-evil-winrm -i sequel.htb -u Administrator -H a52f78e4c751e5f5e17e1e9f3e58f4ee
+evil-winrm -i sequel.htb -u Administrator -H b292f78e4c751e5f5e17e1e9f3e58f4ee
 ```
 
 ```powershell
@@ -288,30 +279,5 @@ evil-winrm -i sequel.htb -u Administrator -H a52f78e4c751e5f5e17e1e9f3e58f4ee
 ```
 
 ---
-
-## 6. Summary
-
-| Phase | Technique | Result |
-|-------|-----------|--------|
-| Recon | RustScan + Nmap | DC identified, Windows Server 2019; MSSQL on port 1433 noted |
-| SMB Enumeration | NetExec guest auth | `Public` share readable; SQL credentials found inside PDF |
-| MSSQL Access | impacket-mssqlclient | Connected as `PublicUser`; `xp_dirtree` available |
-| Hash Capture | Responder + xp_dirtree | NTLMv2 hash for `sql_svc` captured |
-| Hash Cracking | Hashcat rockyou | `sql_svc:REGGIE1234ronnie` recovered |
-| Initial Shell | Evil-WinRM | Shell as `sql_svc` on DC |
-| Credential Leak | SQL Server ERRORLOG.BAK | `ryan.cooper:NuclearMosquito3` discovered in error log |
-| ADCS Enumeration | Certipy find | `UserAuthentication` template identified as ESC1-vulnerable |
-| ESC1 Abuse | Certipy req + auth | Certificate issued as `administrator`; NT hash extracted |
-| Root | Evil-WinRM Pass-the-Hash | `root.txt` retrieved from `C:\Users\Administrator\Desktop` |
-
-### Key Takeaways
-
-- **Sensitive documentation must never be placed on unauthenticated shares.** The `Public` SMB share was accessible to any guest and contained a PDF with valid database credentials. Internal documents referencing credentials — even low-privilege ones — must be restricted to authenticated, need-to-know principals only.
-
-- **SQL Server service accounts should be blocked from making outbound SMB connections.** The `xp_dirtree` call triggered an outbound NTLMv2 authentication that exposed the service account's password hash. Firewall rules should prevent outbound SMB from database servers, and procedures like `xp_dirtree` and `xp_fileexist` should be disabled when not explicitly required.
-
-- **SQL Server error logs are a frequently overlooked credential source.** When a user mistypes their password into the username field, SQL Server logs the value verbatim. These log files are routinely skipped during hardening reviews. Log directories should be access-controlled and logs should be periodically audited and rotated.
-
-- **ADCS ESC1 is a critical privilege escalation path in misconfigured environments.** Any certificate template that permits enrollees to supply their own subject and allows client authentication is a direct route to domain compromise. The `EnrolleeSuppliesSubject` flag should be removed from templates available to broad groups, and certificate issuance for sensitive templates should require manager approval or authorized signatures.
 
 - **Certificate-based authentication bypasses password-based defenses entirely.** A valid certificate for an account enables full Kerberos authentication regardless of the account's password, MFA configuration, or logon restrictions. AD CS must be treated as a Tier 0 asset on par with the DC itself, with its templates and permissions subject to continuous auditing.

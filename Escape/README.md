@@ -5,9 +5,6 @@
 | Platform   | [Hack The Box](https://app.hackthebox.com/machines/Escape)     |
 | Difficulty | Medium                                                         |
 | OS         | Windows                                                        |
-| Date       | June 24, 2026                                                  |
-
----
 
 ---
 
@@ -280,4 +277,3 @@ evil-winrm -i sequel.htb -u Administrator -H b292f78e4c751e5f5e17e1e9f3e58f4ee
 
 ---
 
-- **Certificate-based authentication bypasses password-based defenses entirely.** A valid certificate for an account enables full Kerberos authentication regardless of the account's password, MFA configuration, or logon restrictions. AD CS must be treated as a Tier 0 asset on par with the DC itself, with its templates and permissions subject to continuous auditing.

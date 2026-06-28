@@ -172,6 +172,7 @@ bloodyAD --host 10.129.20.210 -d fluffy.htb -u 'p.agila' -p 'prometheusx-303' ad
 > [+] p.agila added to SERVICE ACCOUNTS
 
 ##### Step 2 — Shadow Credentials Attack on winrm_svc
+If we have GenericWrite permission on a user and there is a CA user, we immediately decide to try **"ForcePasswordReset"** and **"Shadow Credentials"** attacks to get that user's account. 
 Using `certipy`, a Key Credential is injected into the `winrm_svc` account to retrieve its NT hash.
 
 ```bash

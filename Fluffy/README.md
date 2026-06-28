@@ -36,10 +36,21 @@ rustscan -a 10.129.20.210
 ```bash
 nmap -sC -sV -p88,389,445,593,636,3268 10.129.20.210
 ```
-> PORT 88/tcp open kerberos-sec Microsoft Windows Kerberos  
-> PORT 389/tcp open ldap Microsoft Windows Active Directory LDAP (Domain: fluffy.htb)  
-> PORT 445/tcp open microsoft-ds?  
-> Host script results: smb2-security-mode: Message signing enabled and required
+```bash
+PORT      STATE  SERVICE       VERSION
+53/tcp    open   domain        Simple DNS Plus
+88/tcp    open   kerberos-sec  Microsoft Windows Kerberos
+139/tcp   open   netbios-ssn
+389/tcp   open   ldap          Microsoft Windows AD LDAP (Domain: fluffy.htb)
+445/tcp   open   microsoft-ds
+464/tcp   open   kpasswd5
+593/tcp   open   ncacn_http    RPC over HTTP 1.0
+636/tcp   open   ssl/ldap      Microsoft Windows AD LDAP
+3268/tcp  open   ldap          Global Catalog
+3269/tcp  open   ssl/ldap      Global Catalog TLS
+5985/tcp  open   http          WinRM (Microsoft HTTPAPI 2.0)
+9389/tcp  open   adws
+```
 
 **Key observations:**
 *   **Hostname:** `DC01.fluffy.htb` — Primary Domain Controller.

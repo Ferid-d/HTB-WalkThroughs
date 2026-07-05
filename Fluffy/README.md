@@ -275,3 +275,4 @@ The final root flag is obtained by logging in with the Administrator's NT hash.
 *   **Writable SMB Shares:** They are a high-risk misconfiguration that enables silent credential leaks via vulnerabilities like CVE-2025-24071.
 *   **Shadow Credentials:** This attack is operationally "clean" because tools like `certipy` automatically restore the modified attributes after exploitation.
 *   **ESC16 & UPN Restoration:** The UPN restoration step is mandatory; failing to restore it before authentication will cause the certificate mapping to fail.
+

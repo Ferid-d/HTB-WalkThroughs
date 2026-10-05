@@ -1,10 +1,14 @@
 # HTB Support — Writeup
 
-**Target:** 10.129.151.59 (DC.support.htb)
-**Domain:** support.htb
-**Difficulty:** Windows Active Directory box
-**Starting point:** No credentials provided — fully unauthenticated start (Guest/Null SMB access only)
-**Author:** Faridd
+## **Target:** 10.129.151.59 (DC.support.htb)
+
+## **Domain:** support.htb
+
+## **Difficulty:** Windows Active Directory box
+
+## **Starting point:** No credentials provided — fully unauthenticated start (Guest/Null SMB access only)
+
+## **Author:** Faridd
 
 ---
 

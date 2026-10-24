@@ -138,14 +138,6 @@ Each one explains the *why* behind every step, not just the commands.
 | 3️⃣ | **Privilege escalation** | Local enumeration → root / SYSTEM / Domain Admin |
 | 4️⃣ | **Takeaways** | What I learned, plus detection and mitigation ideas |
 
-## ➕ Adding a new write-up
-
-<details>
-<summary>The README updates itself — here's how</summary>
-
-1. Create a folder named after the machine, with a `README.md` inside.
-2. Start that `README.md` with the header table below.
-3. Commit and push. A GitHub Action rebuilds the stats card, counts and tables above within a minute.
 
 ```markdown
 # HTB Write-Up: MachineName
@@ -163,5 +155,3 @@ If `Difficulty`, `OS` or `Date` are missing, the generator falls back to `script
 </details>
 
 ---
-
-<sub>⚠️ For educational purposes only. Please follow Hack The Box's rules on publishing write-ups.</sub>

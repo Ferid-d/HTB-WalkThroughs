@@ -36,16 +36,6 @@ Each one explains the *why* behind every step, not just the commands.
 | ⚪ Unrated | 3 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 10% |
 | **Total** | **31** | |
 
-**📅 Activity — last 6 months**
-
-| Month | Solved | |
-|:--|:-:|:--|
-| May 2026 | 2 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱` |
-| Jun 2026 | 7 | `▰▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱` |
-| Jul 2026 | 2 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱` |
-| Aug 2026 | 0 | `▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` |
-| Sep 2026 | 0 | `▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` |
-| Oct 2026 | 13 | `▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰` |
 <!-- STATS:END -->
 
 ## 🆕 Recently solved

@@ -39,7 +39,7 @@ ROOT = Path(__file__).resolve().parent.parent
 README = ROOT / "README.md"
 SVG_PATH = ROOT / "assets" / "stats.svg"
 OVERRIDES = Path(__file__).resolve().parent / "overrides.csv"
-SKIP_DIRS = {"scripts", "assets", "node_modules", "venv", "webshell"}  # folders that are not HTB machines
+SKIP_DIRS = {"scripts", "assets", "node_modules", "venv"}
 
 # name, colour (hex, no #), emoji
 LEVELS = [
@@ -243,6 +243,24 @@ def block_stats(ms: list[Machine]) -> str:
         out.append(f"| ⚪ Unrated | {unrated} | `{bar(unrated, total)}` {pct(unrated, total)} |")
     out.append(f"| **Total** | **{total}** | |")
 
+    months: dict[tuple[int, int], int] = {}
+    for m in ms:
+        if m.solved:
+            months[(m.solved.year, m.solved.month)] = months.get((m.solved.year, m.solved.month), 0) + 1
+    if months:
+        y, mo = max(months)
+        seq = []
+        for _ in range(6):
+            seq.append((y, mo))
+            mo -= 1
+            if mo == 0:
+                y, mo = y - 1, 12
+        seq.reverse()
+        peak = max(months.get(k, 0) for k in seq) or 1
+        out += ["", "**📅 Activity — last 6 months**\n", "| Month | Solved | |", "|:--|:-:|:--|"]
+        for k in seq:
+            c = months.get(k, 0)
+            out.append(f"| {MONTH_ABBR[k[1] - 1]} {k[0]} | {c} | `{bar(c, peak, 16)}` |")
     return "\n".join(out)
 
 

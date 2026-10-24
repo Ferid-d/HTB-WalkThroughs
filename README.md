@@ -1,167 +1,136 @@
-<div align="center">
+# 🎯 HackTheBox Write-ups
 
-# 🏴‍☠️ HTB WalkThroughs
+A comprehensive collection of my **HackTheBox** machine write-ups, documenting my journey through various machines with detailed explanations, methodologies, and lessons learned.
 
-**Hack The Box machine write-ups — from the first nmap scan to root.**
-Each one explains the *why* behind every step, not just the commands.
+## 📖 About
 
-<!-- BADGES:START -->
-<p align="center">
-<img src="https://img.shields.io/badge/Machines-31-58a6ff?style=for-the-badge&labelColor=161b22&logo=hackthebox&logoColor=white" alt="Machines: 31">
-<img src="https://img.shields.io/badge/Easy-14-9fef00?style=for-the-badge&labelColor=161b22" alt="Easy: 14">
-<img src="https://img.shields.io/badge/Medium-11-ffaf00?style=for-the-badge&labelColor=161b22" alt="Medium: 11">
-<img src="https://img.shields.io/badge/Hard-3-ff3e3e?style=for-the-badge&labelColor=161b22" alt="Hard: 3">
-<img src="https://img.shields.io/badge/Insane-0-a335ee?style=for-the-badge&labelColor=161b22" alt="Insane: 0"><br>
-<img src="https://img.shields.io/badge/Linux-7-f0883e?style=for-the-badge&labelColor=161b22" alt="Linux: 7">
-<img src="https://img.shields.io/badge/Windows-21-58a6ff?style=for-the-badge&labelColor=161b22" alt="Windows: 21">
-<img src="https://img.shields.io/badge/Latest-Devvortex-238636?style=for-the-badge&labelColor=161b22" alt="Latest: Devvortex">
-</p>
-<!-- BADGES:END -->
+This repository contains detailed walkthroughs for HackTheBox machines I've completed. Each write-up includes:
 
-</div>
+- **Enumeration** steps with reasoning
+- **Exploitation** techniques and vulnerability analysis
+- **Privilege Escalation** paths
+- **Flags** and key takeaways
+- **Mitigation** strategies
 
----
+These write-ups are created for educational purposes to help others learn penetration testing methodologies.
 
-## 📊 At a glance
+## 🏷️ Machine Categories
+
+> Auto-generated from each `<MachineName>/README.md` — do not edit by hand, just push a new write-up directory and GitHub Actions updates this automatically.
 
 <!-- STATS:START -->
-<p align="center"><img src="assets/stats.svg" alt="HTB progress card" width="820"></p>
+| Difficulty | Count | Description |
+|------------|-------|-------------|
+| 🟢 **Easy** | 27 | Beginner-friendly machines with straightforward paths |
+| 🟡 **Medium** | 16 | Moderate complexity, requiring intermediate skills |
+| 🔴 **Hard** | 6 | Complex machines requiring advanced techniques |
+| ⚫ **Insane** | 0 | Expert-level challenges with multiple layers |
 
-| Difficulty | Machines | Share |
-|:--|:-:|:--|
-| 🟢 **Easy** | 14 | `▰▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱` 45% |
-| 🟠 **Medium** | 11 | `▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱` 35% |
-| 🔴 **Hard** | 3 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 10% |
-| 🟣 **Insane** | 0 | `▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 0% |
-| ⚪ Unrated | 3 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 10% |
-| **Total** | **31** | |
-
-**📅 Activity — last 6 months**
-
-| Month | Solved | |
-|:--|:-:|:--|
-| May 2026 | 2 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱` |
-| Jun 2026 | 7 | `▰▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱` |
-| Jul 2026 | 2 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱` |
-| Aug 2026 | 0 | `▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` |
-| Sep 2026 | 0 | `▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` |
-| Oct 2026 | 13 | `▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰` |
+**Total machines documented: 49**
 <!-- STATS:END -->
 
-## 🆕 Recently solved
-
-<!-- RECENT:START -->
-| Machine | Difficulty | OS | Solved |
-|:--|:-:|:-:|:-:|
-| **[Devvortex](Devvortex/README.md)** | 🟢 Easy | 🐧 Linux | Oct 24, 2026 |
-| **[Voleur](Voleur/README.md)** | 🟠 Medium | 🪟 Windows | Oct 24, 2026 |
-| **[GoodGames](GoodGames/README.md)** | 🟢 Easy | 🐧 Linux | Oct 23, 2026 |
-| **[Logging](Logging/README.md)** | 🟠 Medium | 🪟 Windows | Oct 23, 2026 |
-| **[Overwatch](Overwatch/README.md)** | 🟠 Medium | 🪟 Windows | Oct 21, 2026 |
-<!-- RECENT:END -->
-
-## 🗂️ All write-ups
-
-> Click a difficulty to expand it. Newest first.
+## 🖥️ All Write-ups
 
 <!-- MACHINES:START -->
-<details>
-<summary><b>🟢 Easy</b> — 14 machines</summary>
-
-| Machine | OS | Solved |
-|:--|:-:|:-:|
-| [Devvortex](Devvortex/README.md) | 🐧 Linux | Oct 24, 2026 |
-| [GoodGames](GoodGames/README.md) | 🐧 Linux | Oct 23, 2026 |
-| [Devel](Devel/README.md) | 🪟 Windows | Oct 20, 2026 |
-| [Driver](Driver/README.md) | 🪟 Windows | Oct 19, 2026 |
-| [Sau](Sau/README.md) | 🐧 Linux | Oct 19, 2026 |
-| [Support](Support/README.md) | 🪟 Windows | Oct 5, 2026 |
-| [Touch](Touch/README.md) | 🪟 Windows | Oct 5, 2026 |
-| [Fluffy](Fluffy/README.md) | 🪟 Windows | Jun 28, 2026 |
-| [Sauna](Sauna/README.md) | 🪟 Windows | Jun 19, 2026 |
-| [Bounty](Bounty/bounty.md) | 🪟 Windows | May 3, 2026 |
-| [Active](Active/active.md) | 🪟 Windows | Apr 30, 2026 |
-| [Baby](Baby/baby.md) | 🪟 Windows | Apr 30, 2026 |
-| [Forest](Forest/forest.md) | 🪟 Windows | Apr 30, 2026 |
-| [Traverxec](Traverxec/traverxec.md) | 🐧 Linux | Apr 30, 2026 |
-
-</details>
-
-<details>
-<summary><b>🟠 Medium</b> — 11 machines</summary>
-
-| Machine | OS | Solved |
-|:--|:-:|:-:|
-| [Voleur](Voleur/README.md) | 🪟 Windows | Oct 24, 2026 |
-| [Logging](Logging/README.md) | 🪟 Windows | Oct 23, 2026 |
-| [Overwatch](Overwatch/README.md) | 🪟 Windows | Oct 21, 2026 |
-| [Administrator](Administrator/README.md) | 🪟 Windows | Oct 20, 2026 |
-| [Layover](Layover/README.md) | 🐧 Linux | Oct 7, 2026 |
-| [Jeeves](Jeeves/README.md) | 🪟 Windows | Jul 5, 2026 |
-| [Escape](Escape/README.md) | 🪟 Windows | Jun 25, 2026 |
-| [Certified](Certified/README.md) | 🪟 Windows | Jun 8, 2026 |
-| [DevHub](DevHub/README.md) | 🐧 Linux | Jun 1, 2026 |
-| [Cicada](Cicada/cicada.md) | 🪟 Windows | May 24, 2026 |
-| [Cronos](Cronos/cronos.md) | 🐧 Linux | Apr 30, 2026 |
-
-</details>
-
-<details>
-<summary><b>🔴 Hard</b> — 3 machines</summary>
-
-| Machine | OS | Solved |
-|:--|:-:|:-:|
-| [TombWatcher](TombWatcher/README.md) | 🪟 Windows | Jul 6, 2026 |
-| [Garfield](Garfield/README.md) | 🪟 Windows | Jun 28, 2026 |
-| [Blackfield](Blackfield/README.md) | 🪟 Windows | Jun 19, 2026 |
-
-</details>
-
-<details>
-<summary><b>⚪ Unrated</b> — 3 machines</summary>
-
-| Machine | OS | Solved |
-|:--|:-:|:-:|
-| [Stream](Stream/README.md) | — | Oct 15, 2026 |
-| [Kobold](Kobold/kobold.md) | — | Apr 30, 2026 |
-| [WingData](WingData/wingdata.md) | — | Apr 30, 2026 |
-
-</details>
+| Machine | Difficulty | OS | Date | Write-up |
+|---------|------------|----|------|----------|
+| [Enigma](Enigma/README.md) | 🟢 Easy | Linux | June 29, 2026 | [Read more](Enigma/README.md) |
+| [NanoCorp](NanoCorp/README.md) | 🔴 Hard | Windows | June 23, 2026 | [Read more](NanoCorp/README.md) |
+| [Orion](Orion/README.md) | 🟢 Easy | Linux | June 23, 2026 | [Read more](Orion/README.md) |
+| [Escape](Escape/README.md) | 🟡 Medium | Windows | June 18, 2026 | [Read more](Escape/README.md) |
+| [Blackfield](Blackfield/README.md) | 🔴 Hard | Windows | June 17, 2026 | [Read more](Blackfield/README.md) |
+| [Checkpoint](Checkpoint/README.md) | 🔴 Hard | Windows | June 16, 2026 | [Read more](Checkpoint/README.md) |
+| [Media](Media/README.md) | 🟡 Medium | Windows | June 16, 2026 | [Read more](Media/README.md) |
+| [MetaTwo](MetaTwo/README.md) | 🟢 Easy | Linux | June 15, 2026 | [Read more](MetaTwo/README.md) |
+| [Sauna](Sauna/README.md) | 🟢 Easy | Windows | June 15, 2026 | [Read more](Sauna/README.md) |
+| [Data](Data/README.md) | 🟢 Easy | Linux | June 14, 2026 | [Read more](Data/README.md) |
+| [TombWatcher](TombWatcher/README.md) | 🔴 Hard | Windows | June 13, 2026 | [Read more](TombWatcher/README.md) |
+| [Abducted](Abducted/README.md) | 🟡 Medium | Linux | June 11, 2026 | [Read more](Abducted/README.md) |
+| [POV](POV/README.md) | 🟡 Medium | Windows | June 11, 2026 | [Read more](POV/README.md) |
+| [Sendai](Sendai/README.md) | 🟡 Medium | Windows | June 11, 2026 | [Read more](Sendai/README.md) |
+| [Remote](Remote/README.md) | 🟢 Easy | Windows | June 10, 2026 | [Read more](Remote/README.md) |
+| [Connected](Connected/README.md) | 🟢 Easy | Linux (CentOS 7 / Sangoma FreePBX) | June 8, 2026 | [Read more](Connected/README.md) |
+| [TheFrizz](TheFrizz/README.md) | 🟡 Medium | Windows | June 7, 2026 | [Read more](TheFrizz/README.md) |
+| [Rainbow](Rainbow/README.md) | 🟡 Medium | Windows | May 28, 2026 | [Read more](Rainbow/README.md) |
+| [Resolute](Resolute/README.md) | 🟡 Medium | Windows | May 27, 2026 | [Read more](Resolute/README.md) |
+| [Delivery](Delivery/README.md) | 🟢 Easy | Linux | May 26, 2026 | [Read more](Delivery/README.md) |
+| [Querier](Querier/README.md) | 🟡 Medium | Windows | May 26, 2026 | [Read more](Querier/README.md) |
+| [Administrator](Administrator/README.md) | 🟡 Medium | Windows | May 25, 2026 | [Read more](Administrator/README.md) |
+| [Active](Active/README.md) | 🟢 Easy | Windows | May 24, 2026 | [Read more](Active/README.md) |
+| [Reactor](Reactor/README.md) | 🟢 Easy | Linux | May 24, 2026 | [Read more](Reactor/README.md) |
+| [Jeeves](Jeeves/README.md) | 🟡 Medium | Windows | May 22, 2026 | [Read more](Jeeves/README.md) |
+| [SmartHire](SmartHire/README.md) | 🟡 Medium | Linux (Ubuntu) | May 18, 2026 | [Read more](SmartHire/README.md) |
+| [Helix](Helix/README.md) | 🔴 Hard | Linux | May 17, 2026 | [Read more](Helix/README.md) |
+| [MonitorsTwo](MonitorsTwo/README.md) | 🟢 Easy | Linux | April 30, 2026 | [Read more](MonitorsTwo/README.md) |
+| [Dog](Dog/README.md) | 🟢 Easy | Linux | April 24, 2026 | [Read more](Dog/README.md) |
+| [Lock](Lock/README.md) | 🟢 Easy | Windows | April 24, 2026 | [Read more](Lock/README.md) |
+| [Crafty](Crafty/README.md) | 🟢 Easy | Windows | April 21, 2026 | [Read more](Crafty/README.md) |
+| [Garfield](Garfield/README.md) | 🔴 Hard | Windows | April 20, 2026 | [Read more](Garfield/README.md) |
+| [Logging](Logging/README.md) | 🟡 Medium | Windows | April 20, 2026 | [Read more](Logging/README.md) |
+| [Nibbles](Nibbles/README.md) | 🟢 Easy | Linux | April 20, 2026 | [Read more](Nibbles/README.md) |
+| [Titanic](Titanic/README.md) | 🟢 Easy | Linux | April 20, 2026 | [Read more](Titanic/README.md) |
+| [Shocker](Shocker/README.md) | 🟢 Easy | Linux | April 18, 2026 | [Read more](Shocker/README.md) |
+| [Bounty](Bounty/README.md) | 🟢 Easy | Windows | April 17, 2026 | [Read more](Bounty/README.md) |
+| [Silentium](Silentium/README.md) | 🟢 Easy | Linux | April 17, 2026 | [Read more](Silentium/README.md) |
+| [Bizness](Bizness/README.md) | 🟢 Easy | Linux | April 16, 2026 | [Read more](Bizness/README.md) |
+| [Baby](Baby/README.md) | 🟢 Easy | Windows | April 15, 2026 | [Read more](Baby/README.md) |
+| [Fluffy](Fluffy/README.md) | 🟢 Easy | Windows | April 15, 2026 | [Read more](Fluffy/README.md) |
+| [EscapeTwo](EscapeTwo/README.md) | 🟢 Easy | Windows (Active Directory) | April 14, 2026 | [Read more](EscapeTwo/README.md) |
+| [Reset](Reset/README.md) | 🟢 Easy | Linux | April 14, 2026 | [Read more](Reset/README.md) |
+| [Toolbox](Toolbox/README.md) | 🟢 Easy | Windows | April 14, 2026 | [Read more](Toolbox/README.md) |
+| [Love](Love/README.md) | 🟢 Easy | Linux | April 13, 2026 | [Read more](Love/README.md) |
+| [Cronos](Cronos/README.md) | 🟡 Medium | Linux | Mart 19, 2026 | [Read more](Cronos/README.md) |
+| [DevArea](DevArea/README.md) | 🟡 Medium | Linux | Mart 21, 2026 | [Read more](DevArea/README.md) |
+| [Devhub](Devhub/README.md) | 🟡 Medium | Linux | Mart 26, 2026 | [Read more](Devhub/README.md) |
+| [Traverxec](Traverxec/README.md) | 🟢 Easy | Linux | Mart 24, 2026 | [Read more](Traverxec/README.md) |
 <!-- MACHINES:END -->
 
-## 🧭 How every write-up is structured
+## 📝 Write-up Format
 
-| | Phase | What you'll find |
-|:-:|:--|:--|
-| 1️⃣ | **Recon** | Port scans, service and web enumeration |
-| 2️⃣ | **Foothold** | The vulnerability, the exploit, the first shell |
-| 3️⃣ | **Privilege escalation** | Local enumeration → root / SYSTEM / Domain Admin |
-| 4️⃣ | **Takeaways** | What I learned, plus detection and mitigation ideas |
+Every machine gets its own top-level directory named after the machine, containing a `README.md`:
 
-## ➕ Adding a new write-up
-
-<details>
-<summary>The README updates itself — here's how</summary>
-
-1. Create a folder named after the machine, with a `README.md` inside.
-2. Start that `README.md` with the header table below.
-3. Commit and push. A GitHub Action rebuilds the stats card, counts and tables above within a minute.
-
-```markdown
-# HTB Write-Up: MachineName
-
-| Field      | Details                                                           |
-|------------|-------------------------------------------------------------------|
-| Platform   | [Hack The Box](https://app.hackthebox.com/machines/MachineName)   |
-| Difficulty | Easy / Medium / Hard / Insane                                     |
-| OS         | Linux / Windows                                                   |
-| Date       | Month DD, YYYY                                                    |
+```
+Checkpoint/
+└── README.md
 ```
 
-If `Difficulty`, `OS` or `Date` are missing, the generator falls back to `scripts/overrides.csv`, and for the date to the first git commit of that folder.
+That `README.md` must start with a metadata table — this is what the generator script reads:
 
-</details>
+```markdown
+# HTB Write-Up: Machine Name
+
+| Field      | Details                                                  |
+|------------|-----------------------------------------------------------|
+| Platform   | [Hack The Box](https://app.hackthebox.com/machines/Name)  |
+| Difficulty | Easy / Medium / Hard / Insane                              |
+| OS         | Linux / Windows                                            |
+| Author     | Babayev                                                  |
+| Date       | Month DD, YYYY                                             |
 
 ---
 
-<sub>⚠️ For educational purposes only. Please follow Hack The Box's rules on publishing write-ups.</sub>
+## Table of Contents
+...
+
+## 1. Reconnaissance
+- Nmap scan results
+- Service enumeration
+- Directory fuzzing
+
+## 2. Initial Access / Exploitation
+- Vulnerability identification
+- Exploit development/modification
+- Initial access
+
+## 3. Privilege Escalation
+- Enumeration steps
+- Vulnerability chaining
+- Root/Administrator access
+
+## Summary
+- Key takeaways
+- New techniques discovered
+- Common pitfalls
+```
+
+

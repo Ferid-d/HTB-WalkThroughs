@@ -7,13 +7,13 @@ Each one explains the *why* behind every step, not just the commands.
 
 <!-- BADGES:START -->
 <p align="center">
-<img src="https://img.shields.io/badge/Machines-32-58a6ff?style=for-the-badge&labelColor=161b22&logo=hackthebox&logoColor=white" alt="Machines: 32">
-<img src="https://img.shields.io/badge/Easy-10-9fef00?style=for-the-badge&labelColor=161b22" alt="Easy: 10">
-<img src="https://img.shields.io/badge/Medium-9-ffaf00?style=for-the-badge&labelColor=161b22" alt="Medium: 9">
+<img src="https://img.shields.io/badge/Machines-31-58a6ff?style=for-the-badge&labelColor=161b22&logo=hackthebox&logoColor=white" alt="Machines: 31">
+<img src="https://img.shields.io/badge/Easy-14-9fef00?style=for-the-badge&labelColor=161b22" alt="Easy: 14">
+<img src="https://img.shields.io/badge/Medium-11-ffaf00?style=for-the-badge&labelColor=161b22" alt="Medium: 11">
 <img src="https://img.shields.io/badge/Hard-3-ff3e3e?style=for-the-badge&labelColor=161b22" alt="Hard: 3">
 <img src="https://img.shields.io/badge/Insane-0-a335ee?style=for-the-badge&labelColor=161b22" alt="Insane: 0"><br>
-<img src="https://img.shields.io/badge/Linux-6-f0883e?style=for-the-badge&labelColor=161b22" alt="Linux: 6">
-<img src="https://img.shields.io/badge/Windows-16-58a6ff?style=for-the-badge&labelColor=161b22" alt="Windows: 16">
+<img src="https://img.shields.io/badge/Linux-7-f0883e?style=for-the-badge&labelColor=161b22" alt="Linux: 7">
+<img src="https://img.shields.io/badge/Windows-21-58a6ff?style=for-the-badge&labelColor=161b22" alt="Windows: 21">
 <img src="https://img.shields.io/badge/Latest-Devvortex-238636?style=for-the-badge&labelColor=161b22" alt="Latest: Devvortex">
 </p>
 <!-- BADGES:END -->
@@ -29,12 +29,12 @@ Each one explains the *why* behind every step, not just the commands.
 
 | Difficulty | Machines | Share |
 |:--|:-:|:--|
-| 🟢 **Easy** | 10 | `▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 31% |
-| 🟠 **Medium** | 9 | `▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 28% |
-| 🔴 **Hard** | 3 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 9% |
+| 🟢 **Easy** | 14 | `▰▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱` 45% |
+| 🟠 **Medium** | 11 | `▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱` 35% |
+| 🔴 **Hard** | 3 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 10% |
 | 🟣 **Insane** | 0 | `▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 0% |
-| ⚪ Unrated | 10 | `▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 31% |
-| **Total** | **32** | |
+| ⚪ Unrated | 3 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 10% |
+| **Total** | **31** | |
 
 **📅 Activity — last 6 months**
 
@@ -66,7 +66,7 @@ Each one explains the *why* behind every step, not just the commands.
 
 <!-- MACHINES:START -->
 <details>
-<summary><b>🟢 Easy</b> — 10 machines</summary>
+<summary><b>🟢 Easy</b> — 14 machines</summary>
 
 | Machine | OS | Solved |
 |:--|:-:|:-:|
@@ -79,12 +79,16 @@ Each one explains the *why* behind every step, not just the commands.
 | [Touch](Touch/README.md) | 🪟 Windows | Oct 5, 2026 |
 | [Fluffy](Fluffy/README.md) | 🪟 Windows | Jun 28, 2026 |
 | [Sauna](Sauna/README.md) | 🪟 Windows | Jun 19, 2026 |
+| [Bounty](Bounty/bounty.md) | 🪟 Windows | May 3, 2026 |
+| [Active](Active/active.md) | 🪟 Windows | Apr 30, 2026 |
+| [Baby](Baby/baby.md) | 🪟 Windows | Apr 30, 2026 |
+| [Forest](Forest/forest.md) | 🪟 Windows | Apr 30, 2026 |
 | [Traverxec](Traverxec/traverxec.md) | 🐧 Linux | Apr 30, 2026 |
 
 </details>
 
 <details>
-<summary><b>🟠 Medium</b> — 9 machines</summary>
+<summary><b>🟠 Medium</b> — 11 machines</summary>
 
 | Machine | OS | Solved |
 |:--|:-:|:-:|
@@ -97,6 +101,8 @@ Each one explains the *why* behind every step, not just the commands.
 | [Escape](Escape/README.md) | 🪟 Windows | Jun 25, 2026 |
 | [Certified](Certified/README.md) | 🪟 Windows | Jun 8, 2026 |
 | [DevHub](DevHub/README.md) | 🐧 Linux | Jun 1, 2026 |
+| [Cicada](Cicada/cicada.md) | 🪟 Windows | May 24, 2026 |
+| [Cronos](Cronos/cronos.md) | 🐧 Linux | Apr 30, 2026 |
 
 </details>
 
@@ -112,20 +118,13 @@ Each one explains the *why* behind every step, not just the commands.
 </details>
 
 <details>
-<summary><b>⚪ Unrated</b> — 10 machines</summary>
+<summary><b>⚪ Unrated</b> — 3 machines</summary>
 
 | Machine | OS | Solved |
 |:--|:-:|:-:|
 | [Stream](Stream/README.md) | — | Oct 15, 2026 |
-| [Cicada](Cicada/cicada.md) | — | May 24, 2026 |
-| [Bounty](Bounty/bounty.md) | — | May 3, 2026 |
-| [Active](Active/active.md) | — | Apr 30, 2026 |
-| [Baby](Baby/baby.md) | — | Apr 30, 2026 |
-| [Cronos](Cronos/cronos.md) | — | Apr 30, 2026 |
-| [Forest](Forest/forest.md) | — | Apr 30, 2026 |
 | [Kobold](Kobold/kobold.md) | — | Apr 30, 2026 |
 | [WingData](WingData/wingdata.md) | — | Apr 30, 2026 |
-| [webshell](webshell) | — | — |
 
 </details>
 <!-- MACHINES:END -->

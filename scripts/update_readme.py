@@ -39,7 +39,7 @@ ROOT = Path(__file__).resolve().parent.parent
 README = ROOT / "README.md"
 SVG_PATH = ROOT / "assets" / "stats.svg"
 OVERRIDES = Path(__file__).resolve().parent / "overrides.csv"
-SKIP_DIRS = {"scripts", "assets", "node_modules", "venv"}
+SKIP_DIRS = {"scripts", "assets", "node_modules", "venv", "webshell"}
 
 # name, colour (hex, no #), emoji
 LEVELS = [

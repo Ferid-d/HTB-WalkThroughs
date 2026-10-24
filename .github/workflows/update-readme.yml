@@ -1,0 +1,43 @@
+name: Update README
+
+on:
+  push:
+    branches: [main, master]
+    paths-ignore:
+      - "README.md"
+      - "assets/**"
+  workflow_dispatch: # manual "Run workflow" button in the Actions tab
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-readme
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history so folder creation dates can be read from git
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Rebuild README and stats card
+        run: python scripts/update_readme.py
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md assets/stats.svg
+          if git diff --cached --quiet; then
+            echo "Nothing to commit"
+          else
+            git commit -m "docs: refresh README stats"
+            git push
+          fi

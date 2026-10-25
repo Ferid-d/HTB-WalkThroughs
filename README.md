@@ -35,17 +35,6 @@ Each one explains the *why* behind every step, not just the commands.
 | 🟣 **Insane** | 0 | `▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 0% |
 | ⚪ Unrated | 3 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 9% |
 | **Total** | **32** | |
-
-**📅 Activity — last 6 months**
-
-| Month | Solved | |
-|:--|:-:|:--|
-| May 2026 | 2 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱` |
-| Jun 2026 | 7 | `▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱` |
-| Jul 2026 | 2 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱` |
-| Aug 2026 | 0 | `▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` |
-| Sep 2026 | 0 | `▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` |
-| Oct 2026 | 14 | `▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰` |
 <!-- STATS:END -->
 
 ## 🆕 Recently solved
@@ -139,20 +128,3 @@ Each one explains the *why* behind every step, not just the commands.
 | 3️⃣ | **Privilege escalation** | Local enumeration → root / SYSTEM / Domain Admin |
 | 4️⃣ | **Takeaways** | What I learned, plus detection and mitigation ideas |
 
-
-```markdown
-# HTB Write-Up: MachineName
-
-| Field      | Details                                                           |
-|------------|-------------------------------------------------------------------|
-| Platform   | [Hack The Box](https://app.hackthebox.com/machines/MachineName)   |
-| Difficulty | Easy / Medium / Hard / Insane                                     |
-| OS         | Linux / Windows                                                   |
-| Date       | Month DD, YYYY                                                    |
-```
-
-If `Difficulty`, `OS` or `Date` are missing, the generator falls back to `scripts/overrides.csv`, and for the date to the first git commit of that folder.
-
-</details>
-
----

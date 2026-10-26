@@ -7,7 +7,7 @@ Each one explains the *why* behind every step, not just the commands.
 
 <!-- BADGES:START -->
 <p align="center">
-<img src="https://img.shields.io/badge/Machines-33-58a6ff?style=for-the-badge&labelColor=161b22&logo=hackthebox&logoColor=white" alt="Machines: 33">
+<img src="https://img.shields.io/badge/Machines-34-58a6ff?style=for-the-badge&labelColor=161b22&logo=hackthebox&logoColor=white" alt="Machines: 34">
 <img src="https://img.shields.io/badge/Easy-14-9fef00?style=for-the-badge&labelColor=161b22" alt="Easy: 14">
 <img src="https://img.shields.io/badge/Medium-12-ffaf00?style=for-the-badge&labelColor=161b22" alt="Medium: 12">
 <img src="https://img.shields.io/badge/Hard-4-ff3e3e?style=for-the-badge&labelColor=161b22" alt="Hard: 4">
@@ -29,12 +29,12 @@ Each one explains the *why* behind every step, not just the commands.
 
 | Difficulty | Machines | Share |
 |:--|:-:|:--|
-| 🟢 **Easy** | 14 | `▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱` 42% |
-| 🟠 **Medium** | 12 | `▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱` 36% |
+| 🟢 **Easy** | 14 | `▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱` 41% |
+| 🟠 **Medium** | 12 | `▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱` 35% |
 | 🔴 **Hard** | 4 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 12% |
 | 🟣 **Insane** | 0 | `▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 0% |
-| ⚪ Unrated | 3 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 9% |
-| **Total** | **33** | |
+| ⚪ Unrated | 4 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 12% |
+| **Total** | **34** | |
 <!-- STATS:END -->
 
 ## 🆕 Recently solved
@@ -43,10 +43,10 @@ Each one explains the *why* behind every step, not just the commands.
 | Machine | Difficulty | OS | Solved |
 |:--|:-:|:-:|:-:|
 | **[Delegate](Delegate/README.md)** | 🟠 Medium | 🪟 Windows | Oct 26, 2026 |
+| **[Expressway](Expressway/README.md)** | ⚪ — | — | Oct 26, 2026 |
 | **[DarkZero](DarkZero/README.md)** | 🔴 Hard | 🪟 Windows | Oct 25, 2026 |
 | **[Devvortex](Devvortex/README.md)** | 🟢 Easy | 🐧 Linux | Oct 24, 2026 |
 | **[Voleur](Voleur/README.md)** | 🟠 Medium | 🪟 Windows | Oct 24, 2026 |
-| **[GoodGames](GoodGames/README.md)** | 🟢 Easy | 🐧 Linux | Oct 23, 2026 |
 <!-- RECENT:END -->
 
 ## 🗂️ All write-ups
@@ -109,10 +109,11 @@ Each one explains the *why* behind every step, not just the commands.
 </details>
 
 <details>
-<summary><b>⚪ Unrated</b> — 3 machines</summary>
+<summary><b>⚪ Unrated</b> — 4 machines</summary>
 
 | Machine | OS | Solved |
 |:--|:-:|:-:|
+| [Expressway](Expressway/README.md) | — | Oct 26, 2026 |
 | [Stream](Stream/README.md) | — | Oct 15, 2026 |
 | [Kobold](Kobold/kobold.md) | — | Apr 30, 2026 |
 | [WingData](WingData/wingdata.md) | — | Apr 30, 2026 |

@@ -2,20 +2,20 @@
 <rect x="1" y="1" width="818" height="316" rx="16" fill="#0d1117" stroke="#30363d" stroke-width="2"/>
 <text x="36" y="52" font-size="24" font-weight="700" fill="#e6edf3">HTB Progress</text>
 <text x="36" y="76" font-size="13" fill="#8b949e">Latest: Delegate · Oct 26, 2026</text>
-<text x="34" y="176" font-size="84" font-weight="800" fill="#9fef00">33</text>
+<text x="34" y="176" font-size="84" font-weight="800" fill="#9fef00">34</text>
 <text x="38" y="204" font-size="15" fill="#8b949e">machines pwned</text>
-<text x="38" y="226" font-size="13" fill="#6e7681">3 not rated yet</text>
+<text x="38" y="226" font-size="13" fill="#6e7681">4 not rated yet</text>
 <text x="300" y="116" font-size="15" font-weight="600" fill="#e6edf3">Easy</text>
 <rect x="380" y="104" width="340" height="14" rx="7" fill="#21262d"/>
-<rect x="380" y="104" width="144" height="14" rx="7" fill="#9fef00"/>
+<rect x="380" y="104" width="140" height="14" rx="7" fill="#9fef00"/>
 <text x="740" y="116" font-size="15" font-weight="700" fill="#9fef00">14</text>
 <text x="300" y="154" font-size="15" font-weight="600" fill="#e6edf3">Medium</text>
 <rect x="380" y="142" width="340" height="14" rx="7" fill="#21262d"/>
-<rect x="380" y="142" width="124" height="14" rx="7" fill="#ffaf00"/>
+<rect x="380" y="142" width="120" height="14" rx="7" fill="#ffaf00"/>
 <text x="740" y="154" font-size="15" font-weight="700" fill="#ffaf00">12</text>
 <text x="300" y="192" font-size="15" font-weight="600" fill="#e6edf3">Hard</text>
 <rect x="380" y="180" width="340" height="14" rx="7" fill="#21262d"/>
-<rect x="380" y="180" width="41" height="14" rx="7" fill="#ff3e3e"/>
+<rect x="380" y="180" width="40" height="14" rx="7" fill="#ff3e3e"/>
 <text x="740" y="192" font-size="15" font-weight="700" fill="#ff3e3e">4</text>
 <text x="300" y="230" font-size="15" font-weight="600" fill="#e6edf3">Insane</text>
 <rect x="380" y="218" width="340" height="14" rx="7" fill="#21262d"/>

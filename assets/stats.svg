@@ -1,31 +1,31 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="820" height="318" viewBox="0 0 820 318" font-family="Segoe UI, Ubuntu, Helvetica, Arial, sans-serif" role="img" aria-label="HTB progress">
 <rect x="1" y="1" width="818" height="316" rx="16" fill="#0d1117" stroke="#30363d" stroke-width="2"/>
 <text x="36" y="52" font-size="24" font-weight="700" fill="#e6edf3">HTB Progress</text>
-<text x="36" y="76" font-size="13" fill="#8b949e">Latest: DutyBound · Oct 27, 2026</text>
-<text x="34" y="176" font-size="84" font-weight="800" fill="#9fef00">35</text>
+<text x="36" y="76" font-size="13" fill="#8b949e">Latest: CodePartTwo · Oct 28, 2026</text>
+<text x="34" y="176" font-size="84" font-weight="800" fill="#9fef00">36</text>
 <text x="38" y="204" font-size="15" fill="#8b949e">machines pwned</text>
 <text x="38" y="226" font-size="13" fill="#6e7681">4 not rated yet</text>
 <text x="300" y="116" font-size="15" font-weight="600" fill="#e6edf3">Easy</text>
 <rect x="380" y="104" width="340" height="14" rx="7" fill="#21262d"/>
-<rect x="380" y="104" width="136" height="14" rx="7" fill="#9fef00"/>
-<text x="740" y="116" font-size="15" font-weight="700" fill="#9fef00">14</text>
+<rect x="380" y="104" width="142" height="14" rx="7" fill="#9fef00"/>
+<text x="740" y="116" font-size="15" font-weight="700" fill="#9fef00">15</text>
 <text x="300" y="154" font-size="15" font-weight="600" fill="#e6edf3">Medium</text>
 <rect x="380" y="142" width="340" height="14" rx="7" fill="#21262d"/>
-<rect x="380" y="142" width="126" height="14" rx="7" fill="#ffaf00"/>
+<rect x="380" y="142" width="123" height="14" rx="7" fill="#ffaf00"/>
 <text x="740" y="154" font-size="15" font-weight="700" fill="#ffaf00">13</text>
 <text x="300" y="192" font-size="15" font-weight="600" fill="#e6edf3">Hard</text>
 <rect x="380" y="180" width="340" height="14" rx="7" fill="#21262d"/>
-<rect x="380" y="180" width="39" height="14" rx="7" fill="#ff3e3e"/>
+<rect x="380" y="180" width="38" height="14" rx="7" fill="#ff3e3e"/>
 <text x="740" y="192" font-size="15" font-weight="700" fill="#ff3e3e">4</text>
 <text x="300" y="230" font-size="15" font-weight="600" fill="#e6edf3">Insane</text>
 <rect x="380" y="218" width="340" height="14" rx="7" fill="#21262d"/>
 <text x="740" y="230" font-size="15" font-weight="700" fill="#a335ee">0</text>
 <text x="36" y="262" font-size="13" font-weight="600" fill="#8b949e">OPERATING SYSTEMS</text>
 <rect x="36" y="272" width="748" height="12" rx="6" fill="#21262d"/>
-<rect x="36.0" y="272" width="193.0" height="12" rx="6" fill="#f0883e"/>
-<rect x="229.0" y="272" width="555.0" height="12" rx="6" fill="#58a6ff"/>
+<rect x="36.0" y="272" width="210.4" height="12" rx="6" fill="#f0883e"/>
+<rect x="246.4" y="272" width="537.6" height="12" rx="6" fill="#58a6ff"/>
 <circle cx="41" cy="300" r="5" fill="#f0883e"/>
-<text x="52" y="305" font-size="13" fill="#e6edf3">Linux · 8</text>
+<text x="52" y="305" font-size="13" fill="#e6edf3">Linux · 9</text>
 <circle cx="191" cy="300" r="5" fill="#58a6ff"/>
 <text x="202" y="305" font-size="13" fill="#e6edf3">Windows · 23</text>
 </svg>

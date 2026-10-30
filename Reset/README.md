@@ -221,6 +221,7 @@ sudo /usr/bin/nano /etc/firewall.sh
 ### 5.3 — Root Flag
 
 ```
-root_279e22f8.txt
+ls /root/
+cat root_279e22f8.txt
 # 7ad6951bcb5a2edaffd7908b013d29b0
 ```

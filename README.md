@@ -7,14 +7,14 @@ Each one explains the *why* behind every step, not just the commands.
 
 <!-- BADGES:START -->
 <p align="center">
-<img src="https://img.shields.io/badge/Machines-36-58a6ff?style=for-the-badge&labelColor=161b22&logo=hackthebox&logoColor=white" alt="Machines: 36">
-<img src="https://img.shields.io/badge/Easy-15-9fef00?style=for-the-badge&labelColor=161b22" alt="Easy: 15">
+<img src="https://img.shields.io/badge/Machines-37-58a6ff?style=for-the-badge&labelColor=161b22&logo=hackthebox&logoColor=white" alt="Machines: 37">
+<img src="https://img.shields.io/badge/Easy-16-9fef00?style=for-the-badge&labelColor=161b22" alt="Easy: 16">
 <img src="https://img.shields.io/badge/Medium-13-ffaf00?style=for-the-badge&labelColor=161b22" alt="Medium: 13">
 <img src="https://img.shields.io/badge/Hard-4-ff3e3e?style=for-the-badge&labelColor=161b22" alt="Hard: 4">
 <img src="https://img.shields.io/badge/Insane-0-a335ee?style=for-the-badge&labelColor=161b22" alt="Insane: 0"><br>
-<img src="https://img.shields.io/badge/Linux-9-f0883e?style=for-the-badge&labelColor=161b22" alt="Linux: 9">
+<img src="https://img.shields.io/badge/Linux-10-f0883e?style=for-the-badge&labelColor=161b22" alt="Linux: 10">
 <img src="https://img.shields.io/badge/Windows-23-58a6ff?style=for-the-badge&labelColor=161b22" alt="Windows: 23">
-<img src="https://img.shields.io/badge/Latest-CodePartTwo-238636?style=for-the-badge&labelColor=161b22" alt="Latest: CodePartTwo">
+<img src="https://img.shields.io/badge/Latest-Reset-238636?style=for-the-badge&labelColor=161b22" alt="Latest: Reset">
 </p>
 <!-- BADGES:END -->
 
@@ -29,12 +29,12 @@ Each one explains the *why* behind every step, not just the commands.
 
 | Difficulty | Machines | Share |
 |:--|:-:|:--|
-| 🟢 **Easy** | 15 | `▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱` 42% |
-| 🟠 **Medium** | 13 | `▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱` 36% |
+| 🟢 **Easy** | 16 | `▰▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱` 43% |
+| 🟠 **Medium** | 13 | `▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱` 35% |
 | 🔴 **Hard** | 4 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 11% |
 | 🟣 **Insane** | 0 | `▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 0% |
 | ⚪ Unrated | 4 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 11% |
-| **Total** | **36** | |
+| **Total** | **37** | |
 <!-- STATS:END -->
 
 ## 🆕 Recently solved
@@ -42,11 +42,11 @@ Each one explains the *why* behind every step, not just the commands.
 <!-- RECENT:START -->
 | Machine | Difficulty | OS | Solved |
 |:--|:-:|:-:|:-:|
+| **[Reset](Reset/README.md)** | 🟢 Easy | 🐧 Linux | Oct 29, 2026 |
 | **[CodePartTwo](CodePartTwo/README.md)** | 🟢 Easy | 🐧 Linux | Oct 28, 2026 |
 | **[DutyBound](DutyBound/README.md)** | 🟠 Medium | 🐧 Linux | Oct 27, 2026 |
 | **[Delegate](Delegate/README.md)** | 🟠 Medium | 🪟 Windows | Oct 26, 2026 |
 | **[Expressway](Expressway/README.md)** | ⚪ — | — | Oct 26, 2026 |
-| **[DarkZero](DarkZero/README.md)** | 🔴 Hard | 🪟 Windows | Oct 25, 2026 |
 <!-- RECENT:END -->
 
 ## 🗂️ All write-ups
@@ -55,10 +55,11 @@ Each one explains the *why* behind every step, not just the commands.
 
 <!-- MACHINES:START -->
 <details>
-<summary><b>🟢 Easy</b> — 15 machines</summary>
+<summary><b>🟢 Easy</b> — 16 machines</summary>
 
 | Machine | OS | Solved |
 |:--|:-:|:-:|
+| [Reset](Reset/README.md) | 🐧 Linux | Oct 29, 2026 |
 | [CodePartTwo](CodePartTwo/README.md) | 🐧 Linux | Oct 28, 2026 |
 | [Devvortex](Devvortex/README.md) | 🐧 Linux | Oct 24, 2026 |
 | [GoodGames](GoodGames/README.md) | 🐧 Linux | Oct 23, 2026 |

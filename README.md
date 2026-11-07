@@ -7,14 +7,14 @@ Each one explains the *why* behind every step, not just the commands.
 
 <!-- BADGES:START -->
 <p align="center">
-<img src="https://img.shields.io/badge/Machines-41-58a6ff?style=for-the-badge&labelColor=161b22&logo=hackthebox&logoColor=white" alt="Machines: 41">
-<img src="https://img.shields.io/badge/Easy-18-9fef00?style=for-the-badge&labelColor=161b22" alt="Easy: 18">
+<img src="https://img.shields.io/badge/Machines-42-58a6ff?style=for-the-badge&labelColor=161b22&logo=hackthebox&logoColor=white" alt="Machines: 42">
+<img src="https://img.shields.io/badge/Easy-19-9fef00?style=for-the-badge&labelColor=161b22" alt="Easy: 19">
 <img src="https://img.shields.io/badge/Medium-15-ffaf00?style=for-the-badge&labelColor=161b22" alt="Medium: 15">
 <img src="https://img.shields.io/badge/Hard-4-ff3e3e?style=for-the-badge&labelColor=161b22" alt="Hard: 4">
 <img src="https://img.shields.io/badge/Insane-0-a335ee?style=for-the-badge&labelColor=161b22" alt="Insane: 0"><br>
 <img src="https://img.shields.io/badge/Linux-11-f0883e?style=for-the-badge&labelColor=161b22" alt="Linux: 11">
-<img src="https://img.shields.io/badge/Windows-26-58a6ff?style=for-the-badge&labelColor=161b22" alt="Windows: 26">
-<img src="https://img.shields.io/badge/Latest-Titanic-238636?style=for-the-badge&labelColor=161b22" alt="Latest: Titanic">
+<img src="https://img.shields.io/badge/Windows-27-58a6ff?style=for-the-badge&labelColor=161b22" alt="Windows: 27">
+<img src="https://img.shields.io/badge/Latest-EscapeTwo-238636?style=for-the-badge&labelColor=161b22" alt="Latest: EscapeTwo">
 </p>
 <!-- BADGES:END -->
 
@@ -29,12 +29,12 @@ Each one explains the *why* behind every step, not just the commands.
 
 | Difficulty | Machines | Share |
 |:--|:-:|:--|
-| 🟢 **Easy** | 18 | `▰▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱` 44% |
-| 🟠 **Medium** | 15 | `▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱` 37% |
+| 🟢 **Easy** | 19 | `▰▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱` 45% |
+| 🟠 **Medium** | 15 | `▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱` 36% |
 | 🔴 **Hard** | 4 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 10% |
 | 🟣 **Insane** | 0 | `▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 0% |
 | ⚪ Unrated | 4 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 10% |
-| **Total** | **41** | |
+| **Total** | **42** | |
 <!-- STATS:END -->
 
 ## 🆕 Recently solved
@@ -42,11 +42,11 @@ Each one explains the *why* behind every step, not just the commands.
 <!-- RECENT:START -->
 | Machine | Difficulty | OS | Solved |
 |:--|:-:|:-:|:-:|
+| **[EscapeTwo](EscapeTwo/README.md)** | 🟢 Easy | 🪟 Windows | Nov 3, 2026 |
 | **[Titanic](Titanic/README.md)** | 🟢 Easy | 🐧 Linux | Nov 2, 2026 |
 | **[Puppy](Puppy/README.md)** | 🟠 Medium | 🪟 Windows | Nov 1, 2026 |
 | **[Timelapse](Timelapse/README.md)** | 🟢 Easy | 🪟 Windows | Oct 31, 2026 |
 | **[Media](Media/README.md)** | 🟠 Medium | 🪟 Windows | Oct 30, 2026 |
-| **[Reset](Reset/README.md)** | 🟢 Easy | 🐧 Linux | Oct 29, 2026 |
 <!-- RECENT:END -->
 
 ## 🗂️ All write-ups
@@ -55,10 +55,11 @@ Each one explains the *why* behind every step, not just the commands.
 
 <!-- MACHINES:START -->
 <details>
-<summary><b>🟢 Easy</b> — 18 machines</summary>
+<summary><b>🟢 Easy</b> — 19 machines</summary>
 
 | Machine | OS | Solved |
 |:--|:-:|:-:|
+| [EscapeTwo](EscapeTwo/README.md) | 🪟 Windows | Nov 3, 2026 |
 | [Titanic](Titanic/README.md) | 🐧 Linux | Nov 2, 2026 |
 | [Timelapse](Timelapse/README.md) | 🪟 Windows | Oct 31, 2026 |
 | [Reset](Reset/README.md) | 🐧 Linux | Oct 29, 2026 |

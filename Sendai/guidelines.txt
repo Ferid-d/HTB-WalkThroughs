@@ -1,0 +1,105 @@
+Company: Sendai
+User Behavior Guidelines
+
+Effective Date: [Insert Date]
+Version: 1.0
+
+Table of Contents:
+
+Introduction
+
+General Guidelines
+
+Security Guidelines
+
+Internet and Email Usage Guidelines
+
+Data Management Guidelines
+
+Software Usage Guidelines
+
+Hardware Usage Guidelines
+
+Conclusion
+
+Introduction:
+
+These User Behavior Guidelines are established to ensure the efficient and secure use of information technology resources within Sendai. By adhering to these guidelines, users can contribute to maintaining a productive and secure IT environment. It is the responsibility of every employee to read, understand, and follow these guidelines.
+
+General Guidelines:
+2.1. Password Security:
+a. Users must choose strong passwords that are difficult to guess.
+b. Passwords should be changed regularly and not shared with others.
+c. Users should never write down their passwords or store them in easily accessible locations.
+
+2.2. User Accounts:
+a. Users must not share their user accounts with others.
+b. Each user is responsible for any activities carried out using their account.
+
+2.3. Reporting Incidents:
+a. Users must promptly report any suspected security incidents or unauthorized access to the IT department.
+b. Users should report any IT-related issues to the IT support team for resolution.
+
+2.4. Physical Security:
+a. Users should not leave their workstations unlocked and unattended.
+b. Confidential information and sensitive documents should be stored securely.
+
+Security Guidelines:
+3.1. Malicious Software:
+a. Users must not download or install unauthorized software on company devices.
+b. Users should regularly update their devices with the latest security patches and antivirus software.
+
+3.2. Social Engineering:
+a. Users should be cautious of phishing emails, phone calls, or messages.
+b. Users must not share sensitive information or credentials through untrusted channels.
+
+3.3. Data Backup:
+a. Users should regularly back up their important files and data.
+b. Critical data should be stored on secure network drives or cloud storage.
+
+Internet and Email Usage Guidelines:
+4.1. Acceptable Use:
+a. Internet and email usage should be for work-related purposes.
+b. Users must not access or download inappropriate or unauthorized content.
+
+4.2. Email Etiquette:
+a. Users should maintain professionalism in all email communications.
+b. Users should avoid forwarding chain emails or unauthorized attachments.
+
+4.3. Email Security:
+a. Users should exercise caution when opening email attachments or clicking on links from unknown sources.
+b. Confidential information must not be sent via unencrypted email.
+
+Data Management Guidelines:
+5.1. Data Classification:
+a. Users must classify data according to its sensitivity level.
+b. Users should handle and store sensitive data in accordance with the company's data protection policies.
+
+5.2. Data Privacy:
+a. Users must respect the privacy of personal and sensitive information.
+b. Unauthorized disclosure or sharing of personal data is strictly prohibited.
+
+Software Usage Guidelines:
+6.1. Authorized Software:
+a. Users must only use authorized software and adhere to licensing agreements.
+b. Users should not install or use unauthorized or pirated software.
+
+6.2. Software Updates:
+a. Users should regularly update their software to benefit from the latest features and security patches.
+b. Automatic updates should be enabled whenever possible.
+
+Hardware Usage Guidelines:
+7.1. Equipment Care:
+a. Users should handle company hardware with care and report any damages or malfunctions promptly.
+b. Users must not attempt to repair or modify company equipment without proper authorization.
+
+7.2. Personal Devices:
+a. Users should not connect personal devices to the company network without prior approval from the IT department.
+b. Personal devices used for work purposes must comply with company security policies.
+
+Conclusion:
+By following these User Behavior Guidelines, Sendai employees contribute to the overall security, productivity, and effectiveness of the company's IT infrastructure. Users should regularly review these guidelines and seek clarification from the IT department whenever necessary.
+
+Failure to comply with these guidelines may result in disciplinary action, including the suspension of IT privileges or other appropriate measures.
+
+For any questions or concerns regarding these guidelines, please contact the IT department at [Contact Information].

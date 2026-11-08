@@ -7,14 +7,14 @@ Each one explains the *why* behind every step, not just the commands.
 
 <!-- BADGES:START -->
 <p align="center">
-<img src="https://img.shields.io/badge/Machines-45-58a6ff?style=for-the-badge&labelColor=161b22&logo=hackthebox&logoColor=white" alt="Machines: 45">
+<img src="https://img.shields.io/badge/Machines-46-58a6ff?style=for-the-badge&labelColor=161b22&logo=hackthebox&logoColor=white" alt="Machines: 46">
 <img src="https://img.shields.io/badge/Easy-19-9fef00?style=for-the-badge&labelColor=161b22" alt="Easy: 19">
-<img src="https://img.shields.io/badge/Medium-17-ffaf00?style=for-the-badge&labelColor=161b22" alt="Medium: 17">
+<img src="https://img.shields.io/badge/Medium-18-ffaf00?style=for-the-badge&labelColor=161b22" alt="Medium: 18">
 <img src="https://img.shields.io/badge/Hard-4-ff3e3e?style=for-the-badge&labelColor=161b22" alt="Hard: 4">
 <img src="https://img.shields.io/badge/Insane-0-a335ee?style=for-the-badge&labelColor=161b22" alt="Insane: 0"><br>
 <img src="https://img.shields.io/badge/Linux-11-f0883e?style=for-the-badge&labelColor=161b22" alt="Linux: 11">
-<img src="https://img.shields.io/badge/Windows-29-58a6ff?style=for-the-badge&labelColor=161b22" alt="Windows: 29">
-<img src="https://img.shields.io/badge/Latest-Sendai-238636?style=for-the-badge&labelColor=161b22" alt="Latest: Sendai">
+<img src="https://img.shields.io/badge/Windows-30-58a6ff?style=for-the-badge&labelColor=161b22" alt="Windows: 30">
+<img src="https://img.shields.io/badge/Latest-Phantom-238636?style=for-the-badge&labelColor=161b22" alt="Latest: Phantom">
 </p>
 <!-- BADGES:END -->
 
@@ -29,12 +29,12 @@ Each one explains the *why* behind every step, not just the commands.
 
 | Difficulty | Machines | Share |
 |:--|:-:|:--|
-| 🟢 **Easy** | 19 | `▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱` 42% |
-| 🟠 **Medium** | 17 | `▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱` 38% |
+| 🟢 **Easy** | 19 | `▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱` 41% |
+| 🟠 **Medium** | 18 | `▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱` 39% |
 | 🔴 **Hard** | 4 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 9% |
 | 🟣 **Insane** | 0 | `▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 0% |
 | ⚪ Unrated | 5 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 11% |
-| **Total** | **45** | |
+| **Total** | **46** | |
 <!-- STATS:END -->
 
 ## 🆕 Recently solved
@@ -42,11 +42,11 @@ Each one explains the *why* behind every step, not just the commands.
 <!-- RECENT:START -->
 | Machine | Difficulty | OS | Solved |
 |:--|:-:|:-:|:-:|
+| **[Phantom](Phantom/README.md)** | 🟠 Medium | 🪟 Windows | Nov 8, 2026 |
 | **[Sendai](Sendai/README.md)** | ⚪ — | — | Nov 7, 2026 |
 | **[VulnCicada](VulnCicada/README.md)** | 🟠 Medium | 🪟 Windows | Nov 7, 2026 |
 | **[Job](Job/README.md)** | 🟠 Medium | 🪟 Windows | Nov 6, 2026 |
 | **[EscapeTwo](EscapeTwo/README.md)** | 🟢 Easy | 🪟 Windows | Nov 3, 2026 |
-| **[Titanic](Titanic/README.md)** | 🟢 Easy | 🐧 Linux | Nov 2, 2026 |
 <!-- RECENT:END -->
 
 ## 🗂️ All write-ups
@@ -82,10 +82,11 @@ Each one explains the *why* behind every step, not just the commands.
 </details>
 
 <details>
-<summary><b>🟠 Medium</b> — 17 machines</summary>
+<summary><b>🟠 Medium</b> — 18 machines</summary>
 
 | Machine | OS | Solved |
 |:--|:-:|:-:|
+| [Phantom](Phantom/README.md) | 🪟 Windows | Nov 8, 2026 |
 | [VulnCicada](VulnCicada/README.md) | 🪟 Windows | Nov 7, 2026 |
 | [Job](Job/README.md) | 🪟 Windows | Nov 6, 2026 |
 | [Puppy](Puppy/README.md) | 🪟 Windows | Nov 1, 2026 |

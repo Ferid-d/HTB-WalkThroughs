@@ -4,11 +4,11 @@
 <text x="36" y="76" font-size="13" fill="#8b949e">Latest: Phantom · Nov 8, 2026</text>
 <text x="34" y="176" font-size="84" font-weight="800" fill="#9fef00">47</text>
 <text x="38" y="204" font-size="15" fill="#8b949e">machines pwned</text>
-<text x="38" y="226" font-size="13" fill="#6e7681">4 not rated yet</text>
+<text x="38" y="226" font-size="13" fill="#6e7681">2 not rated yet</text>
 <text x="300" y="116" font-size="15" font-weight="600" fill="#e6edf3">Easy</text>
 <rect x="380" y="104" width="340" height="14" rx="7" fill="#21262d"/>
-<rect x="380" y="104" width="145" height="14" rx="7" fill="#9fef00"/>
-<text x="740" y="116" font-size="15" font-weight="700" fill="#9fef00">20</text>
+<rect x="380" y="104" width="159" height="14" rx="7" fill="#9fef00"/>
+<text x="740" y="116" font-size="15" font-weight="700" fill="#9fef00">22</text>
 <text x="300" y="154" font-size="15" font-weight="600" fill="#e6edf3">Medium</text>
 <rect x="380" y="142" width="340" height="14" rx="7" fill="#21262d"/>
 <rect x="380" y="142" width="137" height="14" rx="7" fill="#ffaf00"/>
@@ -22,10 +22,10 @@
 <text x="740" y="230" font-size="15" font-weight="700" fill="#a335ee">0</text>
 <text x="36" y="262" font-size="13" font-weight="600" fill="#8b949e">OPERATING SYSTEMS</text>
 <rect x="36" y="272" width="748" height="12" rx="6" fill="#21262d"/>
-<rect x="36.0" y="272" width="208.7" height="12" rx="6" fill="#f0883e"/>
-<rect x="244.7" y="272" width="539.3" height="12" rx="6" fill="#58a6ff"/>
+<rect x="36.0" y="272" width="232.7" height="12" rx="6" fill="#f0883e"/>
+<rect x="268.7" y="272" width="515.3" height="12" rx="6" fill="#58a6ff"/>
 <circle cx="41" cy="300" r="5" fill="#f0883e"/>
-<text x="52" y="305" font-size="13" fill="#e6edf3">Linux · 12</text>
+<text x="52" y="305" font-size="13" fill="#e6edf3">Linux · 14</text>
 <circle cx="191" cy="300" r="5" fill="#58a6ff"/>
 <text x="202" y="305" font-size="13" fill="#e6edf3">Windows · 31</text>
 </svg>

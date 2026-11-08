@@ -8,11 +8,11 @@ Each one explains the *why* behind every step, not just the commands.
 <!-- BADGES:START -->
 <p align="center">
 <img src="https://img.shields.io/badge/Machines-47-58a6ff?style=for-the-badge&labelColor=161b22&logo=hackthebox&logoColor=white" alt="Machines: 47">
-<img src="https://img.shields.io/badge/Easy-20-9fef00?style=for-the-badge&labelColor=161b22" alt="Easy: 20">
+<img src="https://img.shields.io/badge/Easy-22-9fef00?style=for-the-badge&labelColor=161b22" alt="Easy: 22">
 <img src="https://img.shields.io/badge/Medium-19-ffaf00?style=for-the-badge&labelColor=161b22" alt="Medium: 19">
 <img src="https://img.shields.io/badge/Hard-4-ff3e3e?style=for-the-badge&labelColor=161b22" alt="Hard: 4">
 <img src="https://img.shields.io/badge/Insane-0-a335ee?style=for-the-badge&labelColor=161b22" alt="Insane: 0"><br>
-<img src="https://img.shields.io/badge/Linux-12-f0883e?style=for-the-badge&labelColor=161b22" alt="Linux: 12">
+<img src="https://img.shields.io/badge/Linux-14-f0883e?style=for-the-badge&labelColor=161b22" alt="Linux: 14">
 <img src="https://img.shields.io/badge/Windows-31-58a6ff?style=for-the-badge&labelColor=161b22" alt="Windows: 31">
 <img src="https://img.shields.io/badge/Latest-Phantom-238636?style=for-the-badge&labelColor=161b22" alt="Latest: Phantom">
 </p>
@@ -29,11 +29,11 @@ Each one explains the *why* behind every step, not just the commands.
 
 | Difficulty | Machines | Share |
 |:--|:-:|:--|
-| 🟢 **Easy** | 20 | `▰▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱` 43% |
+| 🟢 **Easy** | 22 | `▰▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱` 47% |
 | 🟠 **Medium** | 19 | `▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱` 40% |
 | 🔴 **Hard** | 4 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 9% |
 | 🟣 **Insane** | 0 | `▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 0% |
-| ⚪ Unrated | 4 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 9% |
+| ⚪ Unrated | 2 | `▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 4% |
 | **Total** | **47** | |
 <!-- STATS:END -->
 
@@ -55,7 +55,7 @@ Each one explains the *why* behind every step, not just the commands.
 
 <!-- MACHINES:START -->
 <details>
-<summary><b>🟢 Easy</b> — 20 machines</summary>
+<summary><b>🟢 Easy</b> — 22 machines</summary>
 
 | Machine | OS | Solved |
 |:--|:-:|:-:|
@@ -78,7 +78,9 @@ Each one explains the *why* behind every step, not just the commands.
 | [Active](Active/active.md) | 🪟 Windows | Apr 30, 2026 |
 | [Baby](Baby/baby.md) | 🪟 Windows | Apr 30, 2026 |
 | [Forest](Forest/forest.md) | 🪟 Windows | Apr 30, 2026 |
+| [Kobold](Kobold/kobold.md) | 🐧 Linux | Apr 30, 2026 |
 | [Traverxec](Traverxec/traverxec.md) | 🐧 Linux | Apr 30, 2026 |
+| [WingData](WingData/wingdata.md) | 🐧 Linux | Apr 30, 2026 |
 
 </details>
 
@@ -122,14 +124,12 @@ Each one explains the *why* behind every step, not just the commands.
 </details>
 
 <details>
-<summary><b>⚪ Unrated</b> — 4 machines</summary>
+<summary><b>⚪ Unrated</b> — 2 machines</summary>
 
 | Machine | OS | Solved |
 |:--|:-:|:-:|
 | [Expressway](Expressway/README.md) | — | Oct 26, 2026 |
 | [Stream](Stream/README.md) | — | Oct 15, 2026 |
-| [Kobold](Kobold/kobold.md) | — | Apr 30, 2026 |
-| [WingData](WingData/wingdata.md) | — | Apr 30, 2026 |
 
 </details>
 <!-- MACHINES:END -->

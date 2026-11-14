@@ -9,10 +9,10 @@ Each one explains the *why* behind every step, not just the commands.
 <p align="center">
 <img src="https://img.shields.io/badge/Machines-47-58a6ff?style=for-the-badge&labelColor=161b22&logo=hackthebox&logoColor=white" alt="Machines: 47">
 <img src="https://img.shields.io/badge/Easy-22-9fef00?style=for-the-badge&labelColor=161b22" alt="Easy: 22">
-<img src="https://img.shields.io/badge/Medium-19-ffaf00?style=for-the-badge&labelColor=161b22" alt="Medium: 19">
+<img src="https://img.shields.io/badge/Medium-21-ffaf00?style=for-the-badge&labelColor=161b22" alt="Medium: 21">
 <img src="https://img.shields.io/badge/Hard-4-ff3e3e?style=for-the-badge&labelColor=161b22" alt="Hard: 4">
 <img src="https://img.shields.io/badge/Insane-0-a335ee?style=for-the-badge&labelColor=161b22" alt="Insane: 0"><br>
-<img src="https://img.shields.io/badge/Linux-14-f0883e?style=for-the-badge&labelColor=161b22" alt="Linux: 14">
+<img src="https://img.shields.io/badge/Linux-16-f0883e?style=for-the-badge&labelColor=161b22" alt="Linux: 16">
 <img src="https://img.shields.io/badge/Windows-31-58a6ff?style=for-the-badge&labelColor=161b22" alt="Windows: 31">
 <img src="https://img.shields.io/badge/Latest-Phantom-238636?style=for-the-badge&labelColor=161b22" alt="Latest: Phantom">
 </p>
@@ -30,10 +30,9 @@ Each one explains the *why* behind every step, not just the commands.
 | Difficulty | Machines | Share |
 |:--|:-:|:--|
 | 🟢 **Easy** | 22 | `▰▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱` 47% |
-| 🟠 **Medium** | 19 | `▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱` 40% |
+| 🟠 **Medium** | 21 | `▰▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱` 45% |
 | 🔴 **Hard** | 4 | `▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 9% |
 | 🟣 **Insane** | 0 | `▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 0% |
-| ⚪ Unrated | 2 | `▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱` 4% |
 | **Total** | **47** | |
 <!-- STATS:END -->
 
@@ -85,7 +84,7 @@ Each one explains the *why* behind every step, not just the commands.
 </details>
 
 <details>
-<summary><b>🟠 Medium</b> — 19 machines</summary>
+<summary><b>🟠 Medium</b> — 21 machines</summary>
 
 | Machine | OS | Solved |
 |:--|:-:|:-:|
@@ -97,10 +96,12 @@ Each one explains the *why* behind every step, not just the commands.
 | [Media](Media/README.md) | 🪟 Windows | Oct 30, 2026 |
 | [DutyBound](DutyBound/README.md) | 🐧 Linux | Oct 27, 2026 |
 | [Delegate](Delegate/README.md) | 🪟 Windows | Oct 26, 2026 |
+| [Expressway](Expressway/README.md) | 🐧 Linux | Oct 26, 2026 |
 | [Voleur](Voleur/README.md) | 🪟 Windows | Oct 24, 2026 |
 | [Logging](Logging/README.md) | 🪟 Windows | Oct 23, 2026 |
 | [Overwatch](Overwatch/README.md) | 🪟 Windows | Oct 21, 2026 |
 | [Administrator](Administrator/README.md) | 🪟 Windows | Oct 20, 2026 |
+| [Stream](Stream/README.md) | 🐧 Linux | Oct 15, 2026 |
 | [Layover](Layover/README.md) | 🐧 Linux | Oct 7, 2026 |
 | [Jeeves](Jeeves/README.md) | 🪟 Windows | Jul 5, 2026 |
 | [Escape](Escape/README.md) | 🪟 Windows | Jun 25, 2026 |
@@ -120,16 +121,6 @@ Each one explains the *why* behind every step, not just the commands.
 | [TombWatcher](TombWatcher/README.md) | 🪟 Windows | Jul 6, 2026 |
 | [Garfield](Garfield/README.md) | 🪟 Windows | Jun 28, 2026 |
 | [Blackfield](Blackfield/README.md) | 🪟 Windows | Jun 19, 2026 |
-
-</details>
-
-<details>
-<summary><b>⚪ Unrated</b> — 2 machines</summary>
-
-| Machine | OS | Solved |
-|:--|:-:|:-:|
-| [Expressway](Expressway/README.md) | — | Oct 26, 2026 |
-| [Stream](Stream/README.md) | — | Oct 15, 2026 |
 
 </details>
 <!-- MACHINES:END -->
